@@ -1,19 +1,17 @@
 package org.example.tokentrackerbackend.api;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ApiAccessTimer {
     private long lastAccessTime = 0;
-    private final long accessTimeDelay = 300;
+    private long accessTimeDelay = 100L;
 
-    public synchronized void delay() {
+    public void waitForNextAccess() throws InterruptedException {
         long currentTime = System.currentTimeMillis();
-        long elapsedTime = currentTime - lastAccessTime;
-
-        if (elapsedTime < accessTimeDelay) {
-            try {
-                Thread.sleep(accessTimeDelay - elapsedTime);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+        long waitTime = lastAccessTime + accessTimeDelay - currentTime;
+        if (waitTime > 0) {
+            Thread.sleep(waitTime);
         }
         lastAccessTime = System.currentTimeMillis();
     }
