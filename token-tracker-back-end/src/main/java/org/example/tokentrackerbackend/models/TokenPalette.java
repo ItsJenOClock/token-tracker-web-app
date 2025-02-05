@@ -13,10 +13,13 @@ public class TokenPalette {
 
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User owner;
+
     @OneToMany(mappedBy = "tokenPalette", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Token> tokens = new ArrayList<>();
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -39,5 +42,13 @@ public class TokenPalette {
 
     public void setTokens(List<Token> tokens) {
         this.tokens = tokens;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }
