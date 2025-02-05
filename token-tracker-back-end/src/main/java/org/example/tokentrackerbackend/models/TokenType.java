@@ -1,6 +1,8 @@
 package org.example.tokentrackerbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class TokenType {
@@ -12,12 +14,16 @@ public class TokenType {
     private String name;
     private String type;
     private String text;
-    private String color;
     private String art;
 
     @ManyToOne
     @JoinColumn(name = "scryfall_api_id", nullable = false)
+    @JsonIgnore
     private ScryfallApi scryfallApi;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "tokenType", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Token> tokens;
 
     public Long getId() {
         return id;
@@ -51,14 +57,6 @@ public class TokenType {
         this.text = text;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public String getArt() {
         return art;
     }
@@ -73,5 +71,9 @@ public class TokenType {
 
     public void setScryfallApi(ScryfallApi scryfallApi) {
         this.scryfallApi = scryfallApi;
+    }
+
+    public List<Token> getTokens() {
+        return tokens;
     }
 }

@@ -1,5 +1,6 @@
 package org.example.tokentrackerbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,9 +16,13 @@ public class Token {
 
     @ManyToOne
     @JoinColumn(name = "token_palette_id")
+    @JsonIgnore
     private TokenPalette tokenPalette;
 
-    // Getters and Setters
+    @ManyToOne
+    @JoinColumn(name = "token_type_id", nullable = false)
+    private TokenType tokenType;
+
     public Long getId() {
         return id;
     }
@@ -56,5 +61,13 @@ public class Token {
 
     public void setTokenPalette(TokenPalette tokenPalette) {
         this.tokenPalette = tokenPalette;
+    }
+
+    public TokenType getTokenType() {
+        return tokenType;
+    }
+
+    public void setTokenType(TokenType tokenType) {
+        this.tokenType = tokenType;
     }
 }
