@@ -25,6 +25,9 @@ With Token Tracker, you can manage tokens efficiently without relying on physica
 ### Back-End (Java Spring Boot)
 - Java 21
 - Spring Boot 3.4.2
+  - spring-boot-starter-data-jpa
+  - spring-boot-starter-web
+  - mysql-connector-j
 - MySQL Database
 - Maven Build Tool
 
@@ -74,7 +77,6 @@ cd token-tracker-web-app
    ```bash
    npm run dev
    ```
-6. Access localhost from VITE.
 
 ### Back-End Setup
 1. Navigate to the back-end directory:
@@ -105,4 +107,5 @@ cd token-tracker-web-app
    mvn spring-boot:run
    ```
 
-You should now be able to access the app on your localhost. Have fun, and GG! 🧙
+You can then access the app at `http://localhost:5173` (adjust Vite port as needed).
+Have fun, and GG! 🧙
