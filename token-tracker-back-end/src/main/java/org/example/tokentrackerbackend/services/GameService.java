@@ -9,6 +9,7 @@ import org.example.tokentrackerbackend.repositories.GameTokenRepository;
 import org.example.tokentrackerbackend.repositories.TokenPaletteRepository;
 import org.example.tokentrackerbackend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,18 +33,18 @@ public class GameService {
 
     public GameInstance createGame(Long tokenPaletteId, String username) {
         TokenPalette tokenPalette = tokenPaletteRepository.findById(tokenPaletteId)
-                .orElseThrow(() - > new RuntimeException("TokenPalette not found"));
+                .orElseThrow(() -> new RuntimeException("TokenPalette not found"));
 
         if (!tokenPalette.getOwner().getUsername().equals(username)) {
-            throw new RuntimeException("You do not have permission to use this palette");
+            throw new RuntimeException("You do not have permission to use this palette.");
         }
 
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() - > new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Optional < GameInstance > activeGame = gameInstanceRepository.findFirstByOwnerAndStatus(user, GameInstance.GameStatus.ACTIVE);
+        Optional<GameInstance> activeGame = gameInstanceRepository.findFirstByOwnerAndStatus(user, GameInstance.GameStatus.ACTIVE);
         if (activeGame.isPresent()) {
-            throw new RuntimeException("Active game exists, and starting new game will end the current one");
+            throw new RuntimeException("You already have an active game. Starting a new game will end the current one.");
         }
 
         GameInstance game = new GameInstance();
@@ -53,30 +54,42 @@ public class GameService {
         game = gameInstanceRepository.save(game);
 
         GameInstance finalGame = game;
+        /*
+        var gameTokens = tokenPalette.getTokens().stream().map(token -> {
+            GameToken gameToken = new GameToken();
+            gameToken.setGameInstance(finalGame);
+            gameToken.setTokenType(token.getTokenType());
+            return gameToken;
+        }).collect(Collectors.toList());
+
+        gameTokenRepository.saveAll(gameTokens);
+        game.setGameTokens(gameTokens);
+         */
+
         return gameInstanceRepository.save(game);
     }
 
-    public Optional < GameInstance > getActiveGameForUser(String username) {
+    public Optional<GameInstance> getActiveGameForUser(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() - > new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         return gameInstanceRepository.findFirstByOwnerAndStatus(user, GameInstance.GameStatus.ACTIVE);
     }
 
     public GameInstance endGame(Long gameId) {
         GameInstance game = gameInstanceRepository.findById(gameId)
-                .orElseThrow(() - > new RuntimeException("Game not found"));
+                .orElseThrow(() -> new RuntimeException("Game not found"));
         game.setStatus(GameInstance.GameStatus.ENDED);
         return gameInstanceRepository.save(game);
     }
 
-    public Optional < GameInstance > getGameById(Long id) {
+    public Optional<GameInstance> getGameById(Long id) {
         return gameInstanceRepository.findById(id);
     }
 
     public void untapAllTokens(Long gameId) {
         var tokens = gameTokenRepository.findByGameInstanceId(gameId);
-        for (var token: tokens) {
+        for (var token : tokens) {
             token.setTapped(false);
         }
         gameTokenRepository.saveAll(tokens);
@@ -84,7 +97,7 @@ public class GameService {
 
     public void clearAllSickness(Long gameId) {
         var tokens = gameTokenRepository.findByGameInstanceId(gameId);
-        for (var token: tokens) {
+        for (var token : tokens) {
             token.setSick(false);
         }
         gameTokenRepository.saveAll(tokens);
