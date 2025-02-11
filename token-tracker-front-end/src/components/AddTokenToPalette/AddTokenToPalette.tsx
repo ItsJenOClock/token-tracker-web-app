@@ -1,4 +1,4 @@
-import { addTokenToPalette } from "../../api.ts";
+import { addTokenToPalette } from "../../services/api.ts";
 
 interface AddTokenToPaletteProps {
     tokenPaletteId: string;
