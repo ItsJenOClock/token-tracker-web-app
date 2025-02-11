@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/images/react.svg'
-import viteLogo from '/vite.svg'
-import './assets/styles/App.css'
+import { Route, Routes, Link } from "react-router";
+import HomePage from "./pages/HomePage/HomePage";
+import TokenPalettePage from "./pages/TokenPalettePage/TokenPalettePage";
+import TokenPaletteDetailPage from "./pages/TokenPaletteDetailPage/TokenPaletteDetailPage";
+import TokenDetailsPage from "./pages/TokenDetailsPage/TokenDetailsPage";
+import GameInstancePage from "./pages/GameInstancePage/GameInstancePage";
+import UserLogin from "./components/UserLogin/UserLogin";
+import SearchResultsPage from "./pages/SearchResultsPage/SearchResultsPage";
+import { useAuth } from "./context/AuthContext";
+import { useState } from "react";
+import StartGame from "./pages/StartGamePage/StartGame";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const { loggedInUser, logout } = useAuth();
+  const [homeKey, setHomeKey] = useState(0);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <nav>
+        <ul>
+          <li>
+            <Link to="/" onClick={() => setHomeKey((prev) => prev + 1)}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/token-palettes">Token Palettes</Link>
+          </li>
+          {!loggedInUser ? (
+            <li>
+              <Link to="/login">Login / Create User</Link>
+            </li>
+          ) : (
+            <li>
+              <span>Logged in as: {loggedInUser}</span>
+              <button onClick={logout}>Log Out</button>
+            </li>
+          )}
+        </ul>
+      </nav>
 
-export default App
+      <Routes>
+        <Route path="/" element={<HomePage key={homeKey} />} />
+        <Route path="/search" element={<SearchResultsPage />} />
+        <Route
+          path="/token-palettes"
+          element={loggedInUser ? <TokenPalettePage /> : <UserLogin />}
+        />
+        <Route
+          path="/token-palettes/:id"
+          element={loggedInUser ? <TokenPaletteDetailPage /> : <UserLogin />}
+        />
+        <Route path="/token/:oracleId/:side" element={<TokenDetailsPage />} />
+        <Route path="/login" element={<UserLogin />} />
+        <Route
+          path="/start-game"
+          element={loggedInUser ? <StartGame /> : <UserLogin />}
+        />
+        <Route path="/game/:id" element={<GameInstancePage />} />
+      </Routes>
+    </>
+  );
+};
+
+export default App;
