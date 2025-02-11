@@ -102,5 +102,5 @@ cd token-tracker-web-app
    mvn spring-boot:run
    ```
 
-You can now access Token Tracker at `http://localhost:5173`. Don't forget to adjust Vite port as needed.
+You can now access Token Tracker at `http://localhost:5173`. Don't forget to adjust Vite port as needed. 
 Have fun, and GG! 🧙
