@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ScryfallApiRepository extends JpaRepository < ScryfallApi, Integer > {
-    List < ScryfallApi > findByNameContainingIgnoreCase(String name);
+public interface ScryfallApiRepository extends JpaRepository<ScryfallApi, Integer> {
+    List<ScryfallApi> findByName(String name);
     ScryfallApi findByOracleIdAndSide(String oracleId, int side);
 }

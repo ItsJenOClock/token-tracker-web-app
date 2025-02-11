@@ -7,8 +7,8 @@ import org.example.tokentrackerbackend.models.TokenPalette;
 import java.util.List;
 
 @Transactional
-public interface TokenRepository extends JpaRepository < Token, Long > {
-    List < Token > findByTokenPalette(TokenPalette tokenPalette);
+public interface TokenRepository extends JpaRepository<Token, Long> {
+    List<Token> findByTokenPalette(TokenPalette tokenPalette);
 
-    List < Token > findByTokenPaletteId(Long paletteId);
+    List<Token> findByTokenPaletteId(Long paletteId);
 }
