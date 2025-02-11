@@ -1,7 +1,6 @@
 package org.example.tokentrackerbackend.api;
 
 public class CardTypeRecord {
-
     private String oracleId;
     private int side;
     private String name;

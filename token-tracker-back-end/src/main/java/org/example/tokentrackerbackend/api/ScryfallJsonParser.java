@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
 
 public class ScryfallJsonParser {
-
     public static CardTypeRecord scryfallJsonToCardTypeRecord(JsonNode jsonElement) {
         String oracleId = jsonElement.get("oracle_id").asText();
         String name = jsonElement.get("name").asText();
@@ -14,13 +13,11 @@ public class ScryfallJsonParser {
         String toughness = jsonElement.has("toughness") ? jsonElement.get("toughness").asText() : null;
         String imageUri = jsonElement.has("image_uris") ? jsonElement.get("image_uris").get("normal").asText() : null;
         String artist = jsonElement.get("artist").asText();
-
         return new CardTypeRecord(oracleId, 0, name, typeLine, oracleText, power, toughness, imageUri, artist);
     }
 
-    public static List<CardTypeRecord> scryfallJsonToCardTypeRecordDoubleFaced(JsonNode jsonElement) {
+    public static List < CardTypeRecord > scryfallJsonToCardTypeRecordDoubleFaced(JsonNode jsonElement) {
         String oracleId = jsonElement.get("oracle_id").asText();
-
         JsonNode contentsFront = jsonElement.get("card_faces").get(0);
         JsonNode contentsBack = jsonElement.get("card_faces").get(1);
 
