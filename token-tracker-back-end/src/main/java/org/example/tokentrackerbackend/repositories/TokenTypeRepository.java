@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TokenTypeRepository extends JpaRepository<TokenType, Long> {
+public interface TokenTypeRepository extends JpaRepository < TokenType, Long > {
     TokenType findByScryfallApi(ScryfallApi scryfallApi);
 }
