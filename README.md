@@ -9,16 +9,10 @@ These manual methods can add to the complexity, expense, room for error, and clu
 Token Tracker allows you to:
 - **Create Token Palettes**: Build palettes based on your deck's likely tokens.
 - **Manage Live Game**: Create a game instance from a token palette to track tokens during live gameplay.
-- **Track Game State**: Add and remove tokens in real time, reflecting summoning sickness. Increment or decrement counters, tap, and untap.
+- **Track Game State**: Add and remove tokens in real time. Increment or decrement counters, tap and untap, and track summoning sickness.
 - **Search Tokens**: Look up tokens using to explore their attributes, art, and more.
 
 With Token Tracker, you can manage tokens efficiently without relying on physical objects. The goal is to make your MTG experience more streamlined, enjoyable, and affordable.
-
-## Features
-- **Deck-Specific Token Palettes**: Pre-configure token sets for different decks.
-- **Game State Tracking**: Track token counts, tapped status, counters, and temporary effects.
-- **Resume Games**: Continue ongoing games from where you left off.
-- **Search & Add Tokens**: Quickly find and add tokens.
 
 ## Dependencies
 ### Back-End (Java Spring Boot)
@@ -95,7 +89,7 @@ cd token-tracker-web-app
    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
    spring.application.name=token-tracker-back-end
    ```
-3. Install dependencies and build the project:
+3. Install dependencies, and build the project:
    ```bash
    ./mvnw clean install
    # or
@@ -108,5 +102,5 @@ cd token-tracker-web-app
    mvn spring-boot:run
    ```
 
-You can then access the app at `http://localhost:5173` (adjust Vite port as needed).
+You can now access Token Tracker at `http://localhost:5173`. Don't forget to adjust Vite port as needed.
 Have fun, and GG! 🧙
