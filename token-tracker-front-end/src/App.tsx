@@ -9,16 +9,17 @@ import SearchResultsPage from "./pages/SearchResultsPage/SearchResultsPage";
 import { useAuth } from "./context/AuthContext";
 import { useState } from "react";
 import StartGame from "./pages/StartGamePage/StartGame";
+import logo from "./assets/images/full_logo.png";
 
 const App = () => {
   const { loggedInUser, logout } = useAuth();
   const [homeKey, setHomeKey] = useState(0);
   const location = useLocation();
-  const isActive = (path: string, withPrefix: boolean = false) => {
-    if (withPrefix) {
-      return location.pathname.startsWith(path);
+  const isActive = (path: string, matchPrefixes: string[] = []) => {
+    if (location.pathname === path) {
+      return true;
     }
-    return location.pathname === path;
+    return matchPrefixes.some((prefix) => location.pathname.startsWith(prefix));
   };
 
   const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
@@ -34,44 +35,16 @@ const App = () => {
 
     return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/" onClick={() => setHomeKey((prev) => prev + 1)}>
-              <i className="fa-solid fa-house"></i>
-              <p>Home</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="/token-palettes">
-              <i className="fa-solid fa-palette"></i>
-              <p>Token Palettes</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="/start-game">
-              <i class="fa-solid fa-trophy"></i>
-              <p>Game</p>
-            </Link>
-          </li>
-
-          {!loggedInUser ? (
-            <li>
-              <Link to="/login">
-                <i class="fa-solid fa-user"></i>
-                <p>Login / Create User</p>
-              </Link>
-            </li>
-          ) : (
-            <li>
-
-              <p>{loggedInUser}
-                <button onClick={logout}><i className="fa-solid fa-right-from-bracket"></i></button></p>
-            </li>
-          )}
-        </ul>
-      </nav>
-
+      <header className="w-full flex justify-center py-4">
+        <img
+          src={logo}
+          className={`transition-all ${
+            location.pathname === "/"
+              ? "h-24 sm:h-32"
+              : "h-12 sm:h-16"
+          }`}
+        />
+      </header>
       <Routes>
         <Route path="/" element={<HomePage key={homeKey} />} />
         <Route path="/search" element={<SearchResultsPage />} />
@@ -91,6 +64,73 @@ const App = () => {
         />
         <Route path="/game/:id" element={<GameInstancePage />} />
       </Routes>
+
+      <nav className="fixed bottom-0 w-full border-t border-gray-200">
+        <ul className="flex justify-between text-center text-xs sm:text-sm">
+          <li className="flex-1">
+            <Link
+              to="/"
+              className={`flex flex-col items-center p-2 ${
+                isActive("/") ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+              }`}
+              onClick={() => setHomeKey((prev) => prev + 1)}
+            >
+              <i className="fa-solid fa-house text-lg sm:text-xl"></i>
+              <span>Home</span>
+            </Link>
+          </li>
+
+          <li className="flex-1">
+            <Link
+              to="/token-palettes"
+              className={`flex flex-col items-center p-2 ${
+                isActive("/token-palettes") ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+              }`}
+            >
+              <i className="fa-solid fa-palette text-lg sm:text-xl"></i>
+              <span>Palettes</span>
+            </Link>
+          </li>
+
+          <li className="flex-1">
+            <Link
+              to="/start-game"
+              className={`flex flex-col items-center p-2 ${
+                isActive("/start-game", ["/game/"]) ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+              }`}
+            >
+              <i className="fa-solid fa-trophy text-lg sm:text-xl"></i>
+              <span>Game</span>
+            </Link>
+          </li>
+
+          {!loggedInUser ? (
+            <li className="flex-1">
+              <Link
+                to="/login"
+                className={`flex flex-col items-center p-2 ${
+                  isActive("/login") ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+                }`}
+              >
+                <i className="fa-solid fa-user text-lg sm:text-xl"></i>
+                <span>Login</span>
+              </Link>
+            </li>
+          ) : (
+            <li className="flex-1">
+              <div className="flex flex-col items-center text-stone-700">
+                <span>{loggedInUser}</span>
+                <button
+                  onClick={logout}
+                  className="text-lg sm:text-xl hover:text-red-500"
+                >
+                  <i className="fa-solid fa-right-from-bracket"></i>
+                </button>
+              </div>
+            </li>
+          )}
+        </ul>
+      </nav>
     </>
   );
 };
