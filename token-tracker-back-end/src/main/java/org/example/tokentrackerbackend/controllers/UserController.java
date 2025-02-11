@@ -5,6 +5,7 @@ import org.example.tokentrackerbackend.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity < ? > signupUser(@RequestBody Map < String, String > request) {
+    public ResponseEntity<?> signupUser(@RequestBody Map<String, String> request) {
         String username = request.get("username");
 
         if (userRepository.findByUsername(username).isPresent()) {
@@ -33,12 +34,15 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity << ? > loginUser(@RequestBody Map < String, String > request) {
+    public ResponseEntity<?> loginUser(@RequestBody Map<String, String> request) {
         String username = request.get("username");
-        Optional < User > user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
+
         if (user.isPresent()) {
+            System.out.println("User found: " + username);
             return ResponseEntity.ok(Map.of("message", "Login successful", "username", username));
         } else {
+            System.out.println("User not found: " + username);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "User not found"));
         }
     }

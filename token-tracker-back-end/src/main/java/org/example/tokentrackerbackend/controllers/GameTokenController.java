@@ -5,6 +5,7 @@ import org.example.tokentrackerbackend.models.GameToken;
 import org.example.tokentrackerbackend.services.GameTokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,27 +20,26 @@ public class GameTokenController {
     }
 
     @GetMapping
-    public ResponseEntity < List < GameToken >> getTokensForGame(@PathVariable Long gameId) {
+    public ResponseEntity<List<GameToken>> getTokensForGame(@PathVariable Long gameId) {
         return ResponseEntity.ok(gameTokenService.getTokensForGame(gameId));
     }
 
     @PostMapping
-    public ResponseEntity < GameToken > addTokenToGame(
+    public ResponseEntity<GameToken> addTokenToGame(
             @PathVariable Long gameId,
             @RequestBody TokenIdentifyingPair tokenIdentifyingPair) {
         return ResponseEntity.ok(gameTokenService.addTokenToGame(gameId, tokenIdentifyingPair.oracleId(), tokenIdentifyingPair.side()));
     }
     @PatchMapping("/{tokenId}")
-    public ResponseEntity < GameToken > updateToken(@PathVariable Long tokenId, @RequestBody Map < String, Object > updates) {
+    public ResponseEntity<GameToken> updateToken(@PathVariable Long tokenId, @RequestBody Map<String, Object> updates) {
         boolean isSick = (boolean) updates.getOrDefault("isSick", true);
         boolean isTapped = (boolean) updates.getOrDefault("isTapped", false);
         int counters = (int) updates.getOrDefault("counters", 0);
-
         return ResponseEntity.ok(gameTokenService.updateToken(tokenId, isSick, isTapped, counters));
     }
 
     @DeleteMapping("/{tokenId}")
-    public ResponseEntity < Void > removeToken(@PathVariable Long tokenId) {
+    public ResponseEntity<Void> removeToken(@PathVariable Long tokenId) {
         gameTokenService.removeToken(tokenId);
         return ResponseEntity.noContent().build();
     }

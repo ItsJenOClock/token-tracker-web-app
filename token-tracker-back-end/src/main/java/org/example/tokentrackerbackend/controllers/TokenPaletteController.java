@@ -7,6 +7,7 @@ import org.example.tokentrackerbackend.api.CardTypeRecord;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -14,7 +15,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/token_palettes")
 public class TokenPaletteController {
-
     private final TokenPaletteRepository tokenPaletteRepository;
     private final TokenTypeRepository tokenTypeRepository;
     private final ScryfallApiRepository scryfallApiRepository;
@@ -35,8 +35,8 @@ public class TokenPaletteController {
     }
 
     @GetMapping
-    public ResponseEntity < List < TokenPalette >> getUserTokenPalettes(@RequestHeader("Authorization") String username) {
-        Optional < User > user = userRepository.findByUsername(username);
+    public ResponseEntity<List<TokenPalette>> getUserTokenPalettes(@RequestHeader("Authorization") String username) {
+        Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             return ResponseEntity.ok(tokenPaletteRepository.findByOwner(user.get()));
         }
@@ -44,8 +44,8 @@ public class TokenPaletteController {
     }
 
     @PostMapping
-    public ResponseEntity < TokenPalette > createTokenPalette(@RequestHeader("Authorization") String username, @RequestBody TokenPalette tokenPalette) {
-        Optional < User > user = userRepository.findByUsername(username);
+    public ResponseEntity<TokenPalette> createTokenPalette(@RequestHeader("Authorization") String username, @RequestBody TokenPalette tokenPalette) {
+        Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             tokenPalette.setOwner(user.get());
             TokenPalette savedPalette = tokenPaletteRepository.save(tokenPalette);
@@ -54,16 +54,15 @@ public class TokenPaletteController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-
     @PostMapping("/{id}/add_token")
-    public ResponseEntity < TokenPalette > addTokenToPalette(
+    public ResponseEntity<TokenPalette> addTokenToPalette(
             @RequestHeader("Authorization") String username,
             @PathVariable Long id,
             @RequestParam String oracleId,
             @RequestParam int side) {
 
-        Optional < User > user = userRepository.findByUsername(username);
-        Optional < TokenPalette > palette = tokenPaletteRepository.findById(id);
+        Optional<User> user = userRepository.findByUsername(username);
+        Optional<TokenPalette> palette = tokenPaletteRepository.findById(id);
 
         if (user.isPresent() && palette.isPresent() && palette.get().getOwner().equals(user.get())) {
             TokenPalette tokenPalette = palette.get();
@@ -72,14 +71,13 @@ public class TokenPaletteController {
 
             if (scryfallData == null) {
                 CardTypeRecord cardData = cardApiAccessor.getFullTokenList().stream()
-                        .filter(card - > card.getOracleId().equals(oracleId) && card.getSide() == side)
+                        .filter(card -> card.getOracleId().equals(oracleId) && card.getSide() == side)
                         .findFirst()
                         .orElse(null);
 
                 if (cardData == null) {
                     return ResponseEntity.notFound().build();
                 }
-
                 scryfallData = new ScryfallApi();
                 scryfallData.setOracleId(cardData.getOracleId());
                 scryfallData.setSide(cardData.getSide());
@@ -90,7 +88,6 @@ public class TokenPaletteController {
                 scryfallData.setToughness(cardData.getToughness());
                 scryfallData.setImageUri(cardData.getImageUri());
                 scryfallData.setArtist(cardData.getArtist());
-
                 scryfallData = scryfallApiRepository.save(scryfallData);
             }
 
@@ -108,65 +105,56 @@ public class TokenPaletteController {
             Token token = new Token();
             token.setTokenPalette(tokenPalette);
             token.setTokenType(tokenType);
-
             tokenPalette.getTokens().add(token);
             tokenPaletteRepository.save(tokenPalette);
-
             return ResponseEntity.ok(tokenPalette);
         }
-
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity < TokenPalette > getTokenPaletteById(@RequestHeader("Authorization") String username, @PathVariable Long id) {
-        Optional < User > user = userRepository.findByUsername(username);
-        Optional < TokenPalette > palette = tokenPaletteRepository.findById(id);
+    public ResponseEntity<TokenPalette> getTokenPaletteById(@RequestHeader("Authorization") String username, @PathVariable Long id) {
+        Optional<User> user = userRepository.findByUsername(username);
+        Optional<TokenPalette> palette = tokenPaletteRepository.findById(id);
 
         if (user.isPresent() && palette.isPresent() && palette.get().getOwner().equals(user.get())) {
             return ResponseEntity.ok(palette.get());
         }
-
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
     }
 
     @PatchMapping("/{id}/update_name")
-    public ResponseEntity < TokenPalette > updateTokenPaletteName(
+    public ResponseEntity<TokenPalette> updateTokenPaletteName(
             @RequestHeader("Authorization") String username,
             @PathVariable Long id,
-            @RequestBody Map < String, String > requestBody) {
+            @RequestBody Map<String, String> requestBody) {
 
-        Optional < User > user = userRepository.findByUsername(username);
-        Optional < TokenPalette > palette = tokenPaletteRepository.findById(id);
+        Optional<User> user = userRepository.findByUsername(username);
+        Optional<TokenPalette> palette = tokenPaletteRepository.findById(id);
 
         if (user.isPresent() && palette.isPresent() && palette.get().getOwner().equals(user.get())) {
             TokenPalette tokenPalette = palette.get();
             String newName = requestBody.get("name");
-
             if (newName == null || newName.trim().isEmpty()) {
                 return ResponseEntity.badRequest().body(null);
             }
-
             tokenPalette.setName(newName);
             tokenPaletteRepository.save(tokenPalette);
             return ResponseEntity.ok(tokenPalette);
         }
-
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity < Void > deleteTokenPalette(
+    public ResponseEntity<Void> deleteTokenPalette(
             @RequestHeader("Authorization") String username,
             @PathVariable Long id) {
 
-        Optional < User > user = userRepository.findByUsername(username);
-        Optional < TokenPalette > palette = tokenPaletteRepository.findById(id);
-
+        Optional<User> user = userRepository.findByUsername(username);
+        Optional<TokenPalette> palette = tokenPaletteRepository.findById(id);
         if (user.isPresent() && palette.isPresent() && palette.get().getOwner().equals(user.get())) {
             tokenPaletteRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         }
-
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 }
