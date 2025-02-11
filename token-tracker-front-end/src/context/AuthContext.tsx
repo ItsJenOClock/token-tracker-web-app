@@ -5,17 +5,23 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import { useNavigate } from "react-router";
 
 interface AuthContext {
   loggedInUser: string | null;
   login: (username: string) => void;
   logout: () => void;
+  redirectAfterLogin: string | null;
+  setRedirectAfterLogin: (route: string) => void;
 }
 
 const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
+  const [redirectAfterLogin, setRedirectAfterLogin] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     setLoggedInUser(localStorage.getItem("loggedInUser"));
@@ -32,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ loggedInUser, login, logout }}>
+    <AuthContext.Provider value={{ loggedInUser, login, logout, redirectAfterLogin, setRedirectAfterLogin }}>
       {children}
     </AuthContext.Provider>
   );

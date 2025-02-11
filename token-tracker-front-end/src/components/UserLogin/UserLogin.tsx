@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 export default function UserLogin() {
   const [username, setUsername] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { login } = useAuth();
+  const { login, redirectAfterLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -15,7 +15,7 @@ export default function UserLogin() {
       const response = await loginUser(username);
       if (response.success) {
         login(username ?? "");
-        navigate("/");
+        navigate(redirectAfterLogin || "/");
       } else {
         setErrorMessage(response.message ?? "Login failed. Please try again.");
       }
@@ -29,7 +29,7 @@ export default function UserLogin() {
     try {
       await createUser(username);
       login(username ?? "");
-      navigate("/");
+      navigate(redirectAfterLogin || "/");
     } catch (error) {
       console.error("Signup failed", error);
       setErrorMessage("Failed to create user. Try a different username.");
