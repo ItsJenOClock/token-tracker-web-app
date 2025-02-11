@@ -1,4 +1,4 @@
-import { TokenSearchResult, TokenPaletteType, Token } from "./types";
+import { TokenSearchResult, TokenPaletteType, Token } from "../types/types.ts";
 
 const VITE_APP_BACKEND_URL = import.meta.env.VITE_APP_BACKEND_URL;
 export const fetchTokenPalettes = async (): Promise<TokenPaletteType[]> => {
