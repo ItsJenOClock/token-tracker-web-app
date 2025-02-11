@@ -22,14 +22,16 @@ public class TokenType {
     @JoinColumn(name = "scryfall_api_id", nullable = false)
     @JsonIgnore
     private ScryfallApi scryfallApi;
-    
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "tokenType", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List < Token > tokens;
+    private List<Token> tokens;
 
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -37,6 +39,7 @@ public class TokenType {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -44,6 +47,7 @@ public class TokenType {
     public String getType() {
         return type;
     }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -51,6 +55,7 @@ public class TokenType {
     public String getText() {
         return text;
     }
+
     public void setText(String text) {
         this.text = text;
     }
@@ -58,6 +63,7 @@ public class TokenType {
     public String getArt() {
         return art;
     }
+
     public void setArt(String art) {
         this.art = art;
     }
@@ -69,10 +75,10 @@ public class TokenType {
         }
         return oracleId;
     }
+
     public void setOracleId(String oracleId) {
         this.oracleId = oracleId;
     }
-
 
     public int getSide() {
         return side;
@@ -84,11 +90,12 @@ public class TokenType {
     public ScryfallApi getScryfallApi() {
         return scryfallApi;
     }
+
     public void setScryfallApi(ScryfallApi scryfallApi) {
         this.scryfallApi = scryfallApi;
     }
 
-    public List < Token > getTokens() {
+    public List<Token> getTokens() {
         return tokens;
     }
 }

@@ -22,7 +22,7 @@ public class GameInstance {
 
     @OneToMany(mappedBy = "gameInstance", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("gameInstance")
-    private List < GameToken > gameTokens;
+    private List<GameToken> gameTokens;
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
@@ -31,15 +31,16 @@ public class GameInstance {
     private GameStatus status = GameStatus.ACTIVE;
 
     public enum GameStatus {
-        ACTIVE,
-        ENDED
+        ACTIVE, ENDED
     }
+
     public Long getId() {
         return id;
     }
     public void setId(Long id) {
         this.id = id;
     }
+
     public TokenPalette getTokenPalette() {
         return tokenPalette;
     }
@@ -54,16 +55,18 @@ public class GameInstance {
         this.owner = owner;
     }
 
-    public List < GameToken > getGameTokens() {
+    public List<GameToken> getGameTokens() {
         return gameTokens;
     }
-    public void setGameTokens(List < GameToken > gameTokens) {
+
+    public void setGameTokens(List<GameToken> gameTokens) {
         this.gameTokens = gameTokens;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
@@ -71,6 +74,7 @@ public class GameInstance {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -78,6 +82,7 @@ public class GameInstance {
     public GameStatus getStatus() {
         return status;
     }
+
     public void setStatus(GameStatus status) {
         this.status = status;
     }

@@ -27,9 +27,11 @@ public class GameToken {
     private boolean isSick = true;
 
     private int counters = 0;
+
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -37,6 +39,7 @@ public class GameToken {
     public GameInstance getGameInstance() {
         return gameInstance;
     }
+
     public void setGameInstance(GameInstance gameInstance) {
         this.gameInstance = gameInstance;
     }
@@ -44,6 +47,7 @@ public class GameToken {
     public TokenType getTokenType() {
         return tokenType;
     }
+
     public void setTokenType(TokenType tokenType) {
         this.tokenType = tokenType;
     }
@@ -51,6 +55,7 @@ public class GameToken {
     public boolean isTapped() {
         return isTapped;
     }
+
     public void setTapped(boolean tapped) {
         isTapped = tapped;
     }
@@ -58,6 +63,7 @@ public class GameToken {
     public boolean isSick() {
         return isSick;
     }
+
     public void setSick(boolean sick) {
         isSick = sick;
     }
@@ -65,6 +71,7 @@ public class GameToken {
     public int getCounters() {
         return counters;
     }
+
     public void setCounters(int counters) {
         this.counters = counters;
     }

@@ -1,6 +1,7 @@
 package org.example.tokentrackerbackend.models;
 
 import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class ScryfallApi {
     private String artist;
 
     @OneToMany(mappedBy = "scryfallApi", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List < TokenType > tokenTypes;
+    private List<TokenType> tokenTypes;
 
     public int getId() {
         return id;
@@ -104,11 +105,11 @@ public class ScryfallApi {
         this.artist = artist;
     }
 
-    public List < TokenType > getTokenTypes() {
+    public List<TokenType> getTokenTypes() {
         return tokenTypes;
     }
 
-    public void setTokenTypes(List < TokenType > tokenTypes) {
+    public void setTokenTypes(List<TokenType> tokenTypes) {
         this.tokenTypes = tokenTypes;
     }
 }
