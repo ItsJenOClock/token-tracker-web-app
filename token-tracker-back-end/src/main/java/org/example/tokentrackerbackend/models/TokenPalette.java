@@ -18,7 +18,7 @@ public class TokenPalette {
     private User owner;
 
     @OneToMany(mappedBy = "tokenPalette", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Token> tokens = new ArrayList<>();
+    private List < Token > tokens = new ArrayList < > ();
 
     public Long getId() {
         return id;
@@ -36,11 +36,11 @@ public class TokenPalette {
         this.name = name;
     }
 
-    public List<Token> getTokens() {
+    public List < Token > getTokens() {
         return tokens;
     }
 
-    public void setTokens(List<Token> tokens) {
+    public void setTokens(List < Token > tokens) {
         this.tokens = tokens;
     }
 
@@ -51,4 +51,5 @@ public class TokenPalette {
     public void setOwner(User owner) {
         this.owner = owner;
     }
+
 }
