@@ -1,7 +1,6 @@
 package org.example.tokentrackerbackend.services;
 
 import org.example.tokentrackerbackend.models.GameInstance;
-import org.example.tokentrackerbackend.models.GameToken;
 import org.example.tokentrackerbackend.models.TokenPalette;
 import org.example.tokentrackerbackend.models.User;
 import org.example.tokentrackerbackend.repositories.GameInstanceRepository;
@@ -11,7 +10,6 @@ import org.example.tokentrackerbackend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class GameService {
@@ -54,18 +52,6 @@ public class GameService {
         game = gameInstanceRepository.save(game);
 
         GameInstance finalGame = game;
-        /*
-        var gameTokens = tokenPalette.getTokens().stream().map(token -> {
-            GameToken gameToken = new GameToken();
-            gameToken.setGameInstance(finalGame);
-            gameToken.setTokenType(token.getTokenType());
-            return gameToken;
-        }).collect(Collectors.toList());
-
-        gameTokenRepository.saveAll(gameTokens);
-        game.setGameTokens(gameTokens);
-         */
-
         return gameInstanceRepository.save(game);
     }
 

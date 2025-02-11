@@ -5,8 +5,6 @@ import org.example.tokentrackerbackend.services.GameService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/games")
 public class GameController {
