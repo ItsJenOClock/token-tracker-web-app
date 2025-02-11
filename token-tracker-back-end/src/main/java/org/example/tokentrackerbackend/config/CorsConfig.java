@@ -15,10 +15,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(List.of(
-                "http://localhost:5173",
-                "https://token-tracker-fe-cbfaeaffe2d0.herokuapp.com",
-                "https://token-tracker-front-end-11a02ffdeca8.herokuapp.com",
-                "https://tt-fe-771472fc5af2.herokuapp.com"
+                "http://localhost:5173"
         ));
 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
