@@ -1,42 +1,159 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+li {
+  list-style-type: none;
+  padding-bottom: 5px;
+}
+
+nav ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+}
+
+nav li {
+  padding: 10px 20px;
+  display: inline-block;
+  border-bottom: none;
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+button {
+  margin: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.no-results {
+  color: gray;
+}
+
+img {
+  max-width: 200px;
+  height: auto;
+  /*margin: 10px 0;*/
+  display: block;
+}
+
+.count-controls {
+  display: flex;
+  align-items: center;
+  /*gap: 10px;*/
+  /*margin-top: 10px;*/
+}
+
+h1, h2, form {
+  text-align: center;
+  width: 100%;
+}
+
+.text-center {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.game-token {
+  max-width: 200px;
+  height: auto;
+  display: block;
+  transition: transform 0.1s ease-in-out;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.game-token {
+  max-width: 200px;
+  height: auto;
+  display: block;
+  transition: transform 0.1s ease-in-out;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.game-token.sick {
+  border: 2px solid red;
 }
 
-.card {
-  padding: 2em;
+.game-token.tapped {
+  transform: rotate(90deg);
 }
 
-.read-the-docs {
-  color: #888;
+.toggle-button {
+  margin-bottom: 15px;
+}
+
+.result-item {
+  margin-bottom: 20px;
+}
+
+.no-results {
+  color: gray;
+  font-style: italic;
+}
+
+.search-loading {
+  color: gray;
+}
+
+.search-results-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.feedback-message {
+  color: green;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+}
+
+.link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.search-link {
+  text-decoration: none;
+  color: blue;
+}
+
+.confirmation-message {
+  color: green;
+}
+
+.search-toggle-button {
+  margin-bottom: 15px;
+}
+
+.back-button {
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.token-image {
+  max-width: 200px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.input-with-margin {
+  margin-right: 10px;
+}
+
+.button-with-margin {
+  margin-left: 10px;
+}
+
+.image-max-width {
+  max-width: 300px;
 }
