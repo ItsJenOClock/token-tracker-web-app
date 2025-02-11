@@ -1,6 +1,7 @@
 package org.example.tokentrackerbackend.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
 import java.util.List;
 
 public class ScryfallJsonParser {
@@ -16,7 +17,7 @@ public class ScryfallJsonParser {
         return new CardTypeRecord(oracleId, 0, name, typeLine, oracleText, power, toughness, imageUri, artist);
     }
 
-    public static List < CardTypeRecord > scryfallJsonToCardTypeRecordDoubleFaced(JsonNode jsonElement) {
+    public static List<CardTypeRecord> scryfallJsonToCardTypeRecordDoubleFaced(JsonNode jsonElement) {
         String oracleId = jsonElement.get("oracle_id").asText();
         JsonNode contentsFront = jsonElement.get("card_faces").get(0);
         JsonNode contentsBack = jsonElement.get("card_faces").get(1);
@@ -44,7 +45,6 @@ public class ScryfallJsonParser {
                 contentsBack.has("image_uris") ? contentsBack.get("image_uris").get("normal").asText() : null,
                 contentsBack.get("artist").asText()
         );
-
         return List.of(recordFront, recordBack);
     }
 }
