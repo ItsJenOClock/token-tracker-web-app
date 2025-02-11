@@ -41,7 +41,7 @@ export const loginUser = async (
     } else if (response.status === 404) {
         return {
             success: false,
-            message: "Username does not exist.",
+            message: "Username does not exist. Want to create a username instead?",
         };
     } else {
         throw new Error("Failed to log in");
