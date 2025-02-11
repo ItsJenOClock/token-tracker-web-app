@@ -8,9 +8,9 @@ These manual methods can add to the complexity, expense, room for error, and clu
 ## Description
 Token Tracker allows you to:
 - **Create Token Palettes**: Build palettes based on your deck's likely tokens.
-- **Manage Live Games**: Create game instances from token palettes to track tokens during live gameplay.
-- **Track Game State**: Add, modify, and remove tokens in real time, including power/toughness modifications, counters, and temporary effects.
-- **Search Tokens**: Look up tokens using the Scryfall API to explore their attributes, art, and more.
+- **Manage Live Game**: Create a game instance from a token palette to track tokens during live gameplay.
+- **Track Game State**: Add and remove tokens in real time, reflecting summoning sickness. Increment or decrement counters, tap, and untap.
+- **Search Tokens**: Look up tokens using to explore their attributes, art, and more.
 
 With Token Tracker, you can manage tokens efficiently without relying on physical objects. The goal is to make your MTG experience more streamlined, enjoyable, and affordable.
 
@@ -18,8 +18,7 @@ With Token Tracker, you can manage tokens efficiently without relying on physica
 - **Deck-Specific Token Palettes**: Pre-configure token sets for different decks.
 - **Game State Tracking**: Track token counts, tapped status, counters, and temporary effects.
 - **Resume Games**: Continue ongoing games from where you left off.
-- **Search & Add Tokens**: Quickly find and add tokens from the Scryfall API.
-- **Mobile Optimized**: Play and manage tokens seamlessly on any device.
+- **Search & Add Tokens**: Quickly find and add tokens.
 
 ## Dependencies
 ### Back-End (Java Spring Boot)
@@ -30,6 +29,7 @@ With Token Tracker, you can manage tokens efficiently without relying on physica
   - mysql-connector-j
 - MySQL Database
 - Maven Build Tool
+- [Scryfall API](https://github.com/scryfall)
 
 ### Front-End (React + TypeScript)
 - React 18.3.1
@@ -40,6 +40,7 @@ With Token Tracker, you can manage tokens efficiently without relying on physica
 - Express
 - dotenv
 - ESLint
+- [Scryfall API](https://github.com/scryfall)
 
 ## Setup Instructions
 
