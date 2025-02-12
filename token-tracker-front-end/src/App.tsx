@@ -38,13 +38,14 @@ const App = () => {
       <header className="w-full flex justify-center py-4">
         <img
           src={logo}
-          className={`transition-all ${
-            location.pathname === "/"
+          className={`transition-all h-full ${
+            location.pathname === "/" && !location.search
               ? "h-24 sm:h-32"
               : "h-12 sm:h-16"
           }`}
         />
       </header>
+      <main className="pb-16">
       <Routes>
         <Route path="/" element={<HomePage key={homeKey} />} />
         <Route path="/search" element={<SearchResultsPage />} />
@@ -64,8 +65,8 @@ const App = () => {
         />
         <Route path="/game/:id" element={<GameInstancePage />} />
       </Routes>
-
-      <nav className="fixed bottom-0 w-full border-t border-gray-200">
+      </main>
+      <nav className="mt-4 fixed bottom-0 w-full border-t border-gray-200 bg-white">
         <ul className="flex justify-between text-center text-xs sm:text-sm">
           <li className="flex-1">
             <Link
@@ -122,7 +123,7 @@ const App = () => {
                 <span>{loggedInUser}</span>
                 <button
                   onClick={logout}
-                  className="text-lg sm:text-xl hover:text-red-500"
+                  className="text-lg sm:text-xl hover:text-red-500 cursor-pointer"
                 >
                   <i className="fa-solid fa-right-from-bracket"></i>
                 </button>

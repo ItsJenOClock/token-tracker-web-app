@@ -25,7 +25,7 @@ const SearchResults = ({
                          onAddToGame,
                          renderButtonsWithBackendTrigger = true,
                        }: SearchResultsProps) => {
-  const { loggedInUser } = useAuth();
+  const {loggedInUser} = useAuth();
   const location = useLocation();
   const [localSelectedPalettes, setLocalSelectedPalettes] = useState<{
     [key: string]: string;
@@ -80,7 +80,7 @@ const SearchResults = ({
 
   return (
     <div>
-      <ul className="search-results">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 list-none">
         {results.map((card) => {
           if (!card || !card.oracleId) return null;
 
@@ -88,14 +88,14 @@ const SearchResults = ({
           const selectedPaletteValue = localSelectedPalettes[key] || "";
 
           return (
-            <li key={key} className="result-item">
+            <li key={key} className="result-item mb-5 border rounded-lg p-4 bg-white shadow-lg">
               <Link
                 to={`/token/${card.oracleId}/${card.side}`}
                 state={{
                   from: location.pathname + location.search,
                   tokenPalettes,
                 }}
-                className="search-link"
+                className="search-link no-underline text-blue-500"
               >
                 <strong>{card.name}</strong>
               </Link>{" "}
@@ -106,10 +106,10 @@ const SearchResults = ({
                   src={card.imageUri}
                   alt={card.name}
                   loading="lazy"
-                  className="token-image"
+                  className="token-image max-w-[200px] block mb-2.5 mx-auto"
                 />
               ) : (
-                <p>No image available</p>
+                <p className="text-gray-500 italic">No image available</p>
               )}
               {loggedInUser && (
                 <div>
@@ -122,6 +122,7 @@ const SearchResults = ({
                         e.target.value,
                       )
                     }
+                    className="border border-gray-300 rounded p-2 w-full mt-2"
                   >
                     <option value="">-- Select a Palette --</option>
                     {tokenPalettes.map((palette) => (
@@ -146,7 +147,7 @@ const SearchResults = ({
                     />
                   )}
                   {onAddToGame && (
-                    <div>
+                    <div className="mt-4">
                       <button
                         onClick={() =>
                           handleAddToGameWithConfirmation(
@@ -154,11 +155,12 @@ const SearchResults = ({
                             card.side,
                           )
                         }
+                        className="cursor-pointer px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
                       >
                         Add Instance to Current Game
                       </button>
                       {gameConfirmation === `${card.oracleId}-${card.side}` && (
-                        <p className="confirmation-message">
+                        <p className="confirmation-message text-green-500 mt-2 text-center">
                           Token added to the game!
                         </p>
                       )}

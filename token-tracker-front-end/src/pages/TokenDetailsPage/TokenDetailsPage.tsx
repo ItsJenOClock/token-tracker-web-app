@@ -84,7 +84,7 @@ const TokenDetailsPage = () => {
   return (
     <div className="text-center">
       <button onClick={() => navigate(previousPage)} className="back-button">
-        ←
+        <i class="fa-solid fa-left-long"></i>
       </button>
       <h1>{token.name}</h1>
       {token.imageUri && (

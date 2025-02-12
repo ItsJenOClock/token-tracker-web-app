@@ -51,6 +51,7 @@ export default function UserLogin() {
         </div>
       )}
       <button onClick={handleSignup}>Create Username</button>
+      {/*<button onClick={handleSignup} disabled={!username.trim()}>Create Username</button>*/}
     </div>
   );
 }

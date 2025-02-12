@@ -34,12 +34,14 @@ const AddTokenToPalette = ({
     };
 
     return (
-      <div>
-          <button onClick={handleAdd}>Add to Palette</button>
+      <div className="flex justify-center items-center">
+          <button onClick={handleAdd} className="px-4 py-2 bg-blue-500 text-white font-bold rounded hover:opacity-90 cursor-pointer mt-4 ">
+            Add to Palette
+          </button>
           {confirmation && (
-            <p className="confirmation-message">
+            <p className="text-green-500">
                 Token added to{" "}
-                <Link to={`/token-palettes/${tokenPaletteId}`} className="link">
+                <Link to={`/token-palettes/${tokenPaletteId}`} className="text-blue-500 underline">
                     palette
                 </Link>
                 !
