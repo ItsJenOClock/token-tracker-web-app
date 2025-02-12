@@ -32,19 +32,18 @@ export default function UserLogin() {
       navigate(redirectAfterLogin || "/");
     } catch (error) {
       console.error("Signup failed", error);
-      setErrorMessage("Failed to create user. Try a different username.");
+      setErrorMessage("Unable to create user. Please try a different username.");
     }
   };
 
-
   return (
     <div className="flex flex-col items-center bg-gray-100">
-      <div className="bg-white w-full max-w-xl p-6 rounded-lg shadow-lg border border-gray-300">
+      <div className="bg-white max-w-xl p-6 rounded-lg shadow-lg border border-gray-300">
         <h2 className="text-2xl font-semibold text-center text-gray-800">
           Welcome!
         </h2>
         <h3 className="text-xl font-semibold text-center text-gray-800 mb-6">
-          Please log in or create username to access.
+          Please log in or create username.
         </h3>
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <input

@@ -26,7 +26,7 @@ const TokenPalette = ({ onSelect, onCreate, palettes, paletteName, setPaletteNam
             onClick={onCreate}
             className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md focus:outline-none focus:ring focus:ring-blue-400 cursor-pointer"
           >
-            Create Palette
+            <i class="fa-solid fa-plus"></i> Create
           </button>
         </div>
       </div>

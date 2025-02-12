@@ -79,7 +79,6 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Token Tracker</h1>
       <Search onSearch={handleSearch} loading={loading} />
 
       {showLoginMessage && (

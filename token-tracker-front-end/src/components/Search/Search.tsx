@@ -1,52 +1,48 @@
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router";
+import { useState } from "react";
 
 interface SearchProps {
   onSearch: (query: string) => void;
-  loading: boolean;
 }
 
-const Search = ({ onSearch, loading }: SearchProps) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [input, setInput] = useState(searchParams.get("q") || "");
+const Search = ({ onSearch }: SearchProps) => {
+  const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    const query = searchParams.get("q");
-    if (query) {
+  const handleSearch = () => {
+    if (query.trim()) {
       onSearch(query);
-    }
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (input.trim()) {
-      setSearchParams({q: input});
-      onSearch(input);
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleSearch();
+    }
+  }
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex items-center space-x-2 bg-gray-50 p-3 rounded shadow-md max-w-lg mx-auto"
-    >
-      <input
-        type="text"
-        placeholder="Search for a token..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        className="flex-grow px-4 py-2 border border-gray-300 rounded focus:ring focus:ring-blue-300 focus:outline-none text-sm"
-      />
-      <button
-        type="submit"
-        disabled={loading}
-        className={`px-4 py-2 bg-blue-500 text-white rounded font-medium cursor-pointer ${
-          loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
-        }`}
-      >
-        {loading ? "Searching..." : "Search"}
-      </button>
-    </form>
+    <div className="flex flex-col items-center bg-gray-100 mb-4">
+      <div className="bg-white w-full max-w-xl p-6 rounded-lg shadow-lg border border-gray-300">
+        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
+          Token Search
+        </h2>
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full sm:w-auto flex-1 border border-gray-300 p-2 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-400"
+            placeholder="Enter token name"
+            onKeyDown={handleKeyDown}
+          />
+          <button
+            onClick={handleSearch}
+            className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md focus:outline-none focus:ring focus:ring-blue-400 cursor-pointer"
+          >
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

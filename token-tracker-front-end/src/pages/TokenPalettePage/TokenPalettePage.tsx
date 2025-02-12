@@ -62,32 +62,16 @@ const TokenPalettePage = () => {
               <h3 className="text-lg font-medium text-gray-900 text-center">Success</h3>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-2"
+                className="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2 cursor-pointer"
                 aria-label="Close"
               >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <i className="fa-solid fa-circle-xmark w-6 h-6"></i>
               </button>
             </div>
 
             <div className="py-4 text-center">
               <p className="text-sm text-gray-500">
-                Token palette successfully created!{" "}
-                <span role="img" aria-label="success">
-                  🎉
-                </span>
+                Token palette created! 🎉
               </p>
               {currentPaletteId && (
                 <p>

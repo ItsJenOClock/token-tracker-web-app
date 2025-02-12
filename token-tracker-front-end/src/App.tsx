@@ -45,7 +45,7 @@ const App = () => {
           }`}
         />
       </header>
-      <main className="pb-85 bg-gray-100" >
+      <main className="pb-80 bg-gray-100" >
       <Routes>
         <Route path="/" element={<HomePage key={homeKey} />} />
         <Route path="/search" element={<SearchResultsPage />} />
