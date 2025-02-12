@@ -16,8 +16,9 @@ const StartGame = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeGame, setActiveGame] = useState<GameInstance | null>(null);
-  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [confirmationLoading, setConfirmationLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTokenPalettes()
@@ -36,21 +37,25 @@ const StartGame = () => {
     }
 
     if (activeGame) {
-      const confirmEnd = window.confirm(
-        "You have a current game. Are you sure you want to end it and start a new game?",
-      );
-
-      if (confirmEnd) {
-        try {
-          await endGame(activeGame.id.toString());
-          setActiveGame(null);
-          await startNewGame();
-        } catch (err) {
-          setError("Failed to end the current game.");
-        }
-      }
+      setShowModal(true);
     } else {
       await startNewGame();
+    }
+  };
+
+  const handleConfirmEndGame = async () => {
+    setConfirmationLoading(true);
+    try {
+      if (activeGame) {
+        await endGame(activeGame.id.toString());
+        setActiveGame(null);
+        await startNewGame();
+      }
+    } catch (err) {
+      setError("Failed to end the current game.");
+    } finally {
+      setConfirmationLoading(false);
+      setShowModal(false);
     }
   };
 
@@ -83,49 +88,43 @@ const StartGame = () => {
             </a>
           </p>
         ) : (
-          <>
-            <div className="flex items-center gap-4 mb-4">
-              <select
-                value={selectedPalette}
-                onChange={(e) => setSelectedPalette(e.target.value)}
-                className="flex-1 border border-gray-300 rounded-lg p-2 text-gray-700 cursor-pointer"
-              >
-                <option value="">-- Select a Palette --</option>
-                {tokenPalettes.map((palette) => (
-                  <option key={palette.id} value={palette.id}>
-                    {palette.name}
-                  </option>
-                ))}
-              </select>
+          <div className="flex items-center gap-4 mb-4">
+            <select
+              value={selectedPalette}
+              onChange={(e) => setSelectedPalette(e.target.value)}
+              className="flex-1 border border-gray-300 rounded-lg p-2 text-gray-700 cursor-pointer"
+            >
+              <option value="">-- Select a Palette --</option>
+              {tokenPalettes.map((palette) => (
+                <option key={palette.id} value={palette.id}>
+                  {palette.name}
+                </option>
+              ))}
+            </select>
 
-              <button
-                disabled={loading}
-                onClick={handleStartGame}
-                className={`px-4 py-2 text-white rounded-lg flex items-center justify-center gap-2 ${
-                  loading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-500 hover:bg-blue-600"
-                }`}
-              >
-                {loading ? (
-                  <>
-                    <i className="fa-solid fa-hourglass-start"></i> Starting...
-                  </>
-                ) : (
-                  <>
-                    <i className="fa-solid fa-hourglass-start"></i> Start Game
-                  </>
-                )}
-              </button>
-            </div>
-          </>
+            <button
+              disabled={loading}
+              onClick={handleStartGame}
+              className={`px-4 py-2 text-white rounded-lg flex items-center justify-center gap-2 cursor-pointer ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-500 hover:bg-blue-600"
+              }`}
+            >
+              {loading ? (
+                <>
+                  <i className="fa-solid fa-hourglass-start"></i> Starting...
+                </>
+              ) : (
+                <>
+                  <i className="fa-solid fa-hourglass-start"></i> Start Game
+                </>
+              )}
+            </button>
+          </div>
         )}
       </div>
-
-      <div>
-        <p className="m-4"></p>
-      </div>
-
+      <p className="pb-4"></p>
       {activeGame && (
         <GameInfo
           game={activeGame}
@@ -135,34 +134,51 @@ const StartGame = () => {
 
       {showModal && (
         <div
-          className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50"
-          aria-labelledby="confirmation-modal"
-          aria-hidden={!showModal}
+          className={`fixed inset-0 z-50 flex justify-center items-center  aria-hidden=${!showModal}`}
         >
-          <div className="relative bg-white w-full max-w-sm mx-auto rounded-lg shadow-md p-4 border border-gray-300 pb-2">
-            <div className="flex justify-between items-center border-b pb-2">
-              <h3 className="text-lg font-medium text-gray-900">Success</h3>
+          <div className="bg-white w-full max-w-sm mx-auto rounded-lg shadow-md p-4 border border-gray-300">
+            <div className="flex justify-between items-center pb-2 border-b">
+              <h3 className="text-lg font-medium text-gray-900">End Current Game</h3>
               <button
                 onClick={() => setShowModal(false)}
                 className="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2 cursor-pointer"
                 aria-label="Close"
               >
-                <i className="fa-solid fa-circle-xmark"></i>
+                <i className="fa-solid fa-circle-xmark w-6 h-6"></i>
               </button>
             </div>
 
             <div className="py-4 text-center">
-              <p className="text-sm text-gray-500">Game successfully created! 🎉</p>
-              {activeGame && (
-                <p>
-                  <a
-                    href={`/game/${activeGame.id}`}
-                    className="text-blue-500 underline text-sm"
-                  >
-                    View Game
-                  </a>
-                </p>
-              )}
+              <p className="text-sm text-gray-500">
+                You have an active game. Are you sure you want to end it and start a new one?
+              </p>
+              <div className="flex justify-center mt-4 gap-2">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-6 py-2 ml-4 text-sm font-semibold bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 hover:text-gray-700 cursor-pointer"
+                >
+                  <i class="fa-solid fa-rotate-left"></i> No, Cancel
+                </button>
+                <button
+                  onClick={handleConfirmEndGame}
+                  className={`px-6 py-2 text-white rounded-lg text-sm flex items-center justify-center gap-2 cursor-pointer ${
+                    confirmationLoading
+                      ? "bg-red-600 cursor-not-allowed"
+                      : "bg-red-500 hover:bg-red-600"
+                  }`}
+                  disabled={confirmationLoading}
+                >
+                  {confirmationLoading ? (
+                    <>
+                      <i className="fa-solid fa-hourglass-end"></i> Ending...
+                    </>
+                  ) : (
+                    <>
+                      <i className="fa-solid fa-hourglass-end"></i> Yes, End Game
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -172,4 +188,3 @@ const StartGame = () => {
 };
 
 export default StartGame;
-
