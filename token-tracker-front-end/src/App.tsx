@@ -35,7 +35,7 @@ const App = () => {
 
     return (
     <>
-      <header className="w-full flex justify-center py-4">
+      <header className="w-full flex justify-center py-4 bg-gray-100">
         <img
           src={logo}
           className={`transition-all h-full ${
@@ -45,7 +45,7 @@ const App = () => {
           }`}
         />
       </header>
-      <main className="pb-16">
+      <main className="pb-85 bg-gray-100" >
       <Routes>
         <Route path="/" element={<HomePage key={homeKey} />} />
         <Route path="/search" element={<SearchResultsPage />} />
@@ -66,7 +66,7 @@ const App = () => {
         <Route path="/game/:id" element={<GameInstancePage />} />
       </Routes>
       </main>
-      <nav className="mt-4 fixed bottom-0 w-full border-t border-gray-200 bg-white">
+      <nav className="fixed bottom-0 w-full border-t border-gray-200 bg-white">
         <ul className="flex justify-between text-center text-xs sm:text-sm">
           <li className="flex-1">
             <Link
@@ -85,7 +85,7 @@ const App = () => {
             <Link
               to="/token-palettes"
               className={`flex flex-col items-center p-2 ${
-                isActive("/token-palettes") ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+                isActive("/token-palettes", ["/token-palettes/"]) ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
               }`}
             >
               <i className="fa-solid fa-palette text-lg sm:text-xl"></i>
