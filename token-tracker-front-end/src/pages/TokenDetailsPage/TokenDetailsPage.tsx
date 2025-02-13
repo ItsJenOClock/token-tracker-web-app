@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router";
 import { useAuth } from "../../context/AuthContext";
-import { fetchTokenDetails, fetchTokenPalettes, addTokenToPalette } from "../../services/api";
+import {
+  fetchTokenDetails,
+  fetchTokenPalettes,
+  addTokenToPalette,
+} from "../../services/api";
 import AddTokenToPalette from "../../components/AddTokenToPalette/AddTokenToPalette";
 import { TokenDetails } from "../../types/types";
 
@@ -14,7 +18,9 @@ const TokenDetailsPage = () => {
   const [token, setToken] = useState<TokenDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [tokenPalettes, setTokenPalettes] = useState(location.state?.tokenPalettes || []);
+  const [tokenPalettes, setTokenPalettes] = useState(
+    location.state?.tokenPalettes || [],
+  );
   const [selectedPalette, setSelectedPalette] = useState("");
 
   const previousPage = location.state?.from || "/search";
@@ -55,11 +61,26 @@ const TokenDetailsPage = () => {
     }
   };
 
-  if (loading) return <p className="flex items-center justify-center text-gray-500 italic mb-4"><i className="fa-solid fa-spinner fa-spin"></i></p>;
+  if (loading)
+    return (
+      <p className="flex items-center justify-center text-gray-500 italic mb-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+      </p>
+    );
 
-  if (error) return <p className="flex items-center justify-center text-red-500 text-center mb-4">{error}</p>;
+  if (error)
+    return (
+      <p className="flex items-center justify-center text-red-500 text-center mb-4">
+        {error}
+      </p>
+    );
 
-  if (!token) return <p className="flex items-center justify-center text-gray-500 italic text-center mb-4">Token not found.</p>;
+  if (!token)
+    return (
+      <p className="flex items-center justify-center text-gray-500 italic text-center mb-4">
+        Token not found.
+      </p>
+    );
 
   return (
     <div className="flex flex-col items-center bg-gray-100 mb-4">
@@ -70,7 +91,9 @@ const TokenDetailsPage = () => {
         <i className="fa-solid fa-left-long mr-2"></i> Back
       </button>
       <div className="bg-white w-full max-w-3xl p-6 rounded-lg shadow-lg border border-gray-300">
-        <h1 className="text-2xl font-semibold text-gray-800 mb-4 text-center">{token.name}</h1>
+        <h1 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
+          {token.name}
+        </h1>
         {token.imageUri && (
           <img
             src={token.imageUri}
@@ -90,7 +113,8 @@ const TokenDetailsPage = () => {
           {token.power?.trim() !== "N/A" &&
             token.toughness?.trim() !== "N/A" && (
               <p className="text-gray-700 my-2">
-                <strong>Power/Toughness:</strong> {token.power} / {token.toughness}
+                <strong>Power/Toughness:</strong> {token.power} /{" "}
+                {token.toughness}
               </p>
             )}
           <p className="text-gray-700 my-2">
@@ -100,7 +124,9 @@ const TokenDetailsPage = () => {
 
         {loggedInUser && (
           <div className="max-w-xs mx-auto">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">Add to Palette</h3>
+            <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+              Add to Palette
+            </h3>
             <select
               value={selectedPalette}
               onChange={(e) => setSelectedPalette(e.target.value)}

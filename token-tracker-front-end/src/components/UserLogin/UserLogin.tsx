@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 export default function UserLogin() {
   const [username, setUsername] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const {login, redirectAfterLogin} = useAuth();
+  const { login, redirectAfterLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -32,7 +32,9 @@ export default function UserLogin() {
       navigate(redirectAfterLogin || "/");
     } catch (error) {
       console.error("Signup failed", error);
-      setErrorMessage("Username already exists. Please try a different username.");
+      setErrorMessage(
+        "Username already exists. Please try a different username.",
+      );
     }
   };
 
@@ -50,7 +52,9 @@ export default function UserLogin() {
             value={username}
             onChange={(e) => setUsername(e.target.value ?? "")}
             className={`w-full sm:w-auto flex-1 border p-2 rounded-lg text-gray-700 focus:outline-none ${
-              !username.trim() ? "border-gray-300" : "border-gray-300 focus:ring-blue-400"
+              !username.trim()
+                ? "border-gray-300"
+                : "border-gray-300 focus:ring-blue-400"
             }`}
             placeholder="Enter username to create or log in"
           />

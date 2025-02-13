@@ -10,8 +10,7 @@ const TokenPalettePage = () => {
   const [paletteName, setPaletteName] = useState("");
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const [currentPaletteId, setCurrentPaletteId] = useState<string | null>(null)
-
+  const [currentPaletteId, setCurrentPaletteId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTokenPalettes()
@@ -40,7 +39,6 @@ const TokenPalettePage = () => {
     navigate(`/token-palettes/${id}`);
   };
 
-
   return (
     <div className="flex flex-col items-center bg-gray-100 mt-4">
       <TokenPalette
@@ -59,7 +57,9 @@ const TokenPalettePage = () => {
         >
           <div className="relative bg-white w-full max-w-sm mx-auto rounded-lg shadow-md p-4 border border-gray-300 pb-2">
             <div className="flex justify-between items-center border-b pb-2">
-              <h3 className="text-lg font-medium text-gray-900 text-center">Success</h3>
+              <h3 className="text-lg font-medium text-gray-900 text-center">
+                Success
+              </h3>
               <button
                 onClick={() => setShowModal(false)}
                 className="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2 cursor-pointer"
@@ -76,7 +76,8 @@ const TokenPalettePage = () => {
                   className="text-blue-500 underline text-sm"
                 >
                   Token palette
-                </a> created! 🎉
+                </a>{" "}
+                created! 🎉
               </p>
             </div>
           </div>

@@ -23,17 +23,17 @@ const App = () => {
   };
 
   const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
-    const {loggedInUser, setRedirectAfterLogin} = useAuth();
+    const { loggedInUser, setRedirectAfterLogin } = useAuth();
     const location = useLocation();
 
     if (!loggedInUser) {
       setRedirectAfterLogin(location.pathname);
-      return <Navigate to="/login" replace/>;
+      return <Navigate to="/login" replace />;
     }
     return element;
   };
 
-    return (
+  return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
       <header className="w-full flex justify-center py-4 bg-gray-100">
         <img
@@ -45,26 +45,26 @@ const App = () => {
           }`}
         />
       </header>
-      <main className="pb-20 bg-gray-100" >
+      <main className="pb-20 bg-gray-100">
         <Routes>
-        <Route path="/" element={<HomePage key={homeKey} />} />
-        <Route path="/search" element={<SearchResultsPage />} />
-        <Route
-          path="/token-palettes"
-          element={<ProtectedRoute element={<TokenPalettePage />} />}
-        />
-        <Route
-          path="/token-palettes/:id"
-          element={<ProtectedRoute element={<TokenPaletteDetailPage />} />}
-        />
-        <Route path="/token/:oracleId/:side" element={<TokenDetailsPage />} />
-        <Route path="/login" element={<UserLogin />} />
-        <Route
-          path="/start-game"
-          element={<ProtectedRoute element={<StartGame />} />}
-        />
-        <Route path="/game/:id" element={<GameInstancePage />} />
-      </Routes>
+          <Route path="/" element={<HomePage key={homeKey} />} />
+          <Route path="/search" element={<SearchResultsPage />} />
+          <Route
+            path="/token-palettes"
+            element={<ProtectedRoute element={<TokenPalettePage />} />}
+          />
+          <Route
+            path="/token-palettes/:id"
+            element={<ProtectedRoute element={<TokenPaletteDetailPage />} />}
+          />
+          <Route path="/token/:oracleId/:side" element={<TokenDetailsPage />} />
+          <Route path="/login" element={<UserLogin />} />
+          <Route
+            path="/start-game"
+            element={<ProtectedRoute element={<StartGame />} />}
+          />
+          <Route path="/game/:id" element={<GameInstancePage />} />
+        </Routes>
         {loggedInUser && (
           <div className="text-center text-stone-700">
             Casting spells as: {loggedInUser} ✨
@@ -77,7 +77,9 @@ const App = () => {
             <Link
               to="/"
               className={`flex flex-col items-center p-2 ${
-                isActive("/") ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+                isActive("/")
+                  ? "text-[#e26b00]"
+                  : "text-stone-700 hover:text-[#e26b00]"
               }`}
               onClick={() => setHomeKey((prev) => prev + 1)}
             >
@@ -90,7 +92,9 @@ const App = () => {
             <Link
               to="/token-palettes"
               className={`flex flex-col items-center p-2 ${
-                isActive("/token-palettes", ["/token-palettes/"]) ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+                isActive("/token-palettes", ["/token-palettes/"])
+                  ? "text-[#e26b00]"
+                  : "text-stone-700 hover:text-[#e26b00]"
               }`}
             >
               <i className="fa-solid fa-palette text-lg sm:text-xl"></i>
@@ -102,7 +106,9 @@ const App = () => {
             <Link
               to="/start-game"
               className={`flex flex-col items-center p-2 ${
-                isActive("/start-game", ["/game/"]) ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+                isActive("/start-game", ["/game/"])
+                  ? "text-[#e26b00]"
+                  : "text-stone-700 hover:text-[#e26b00]"
               }`}
             >
               <i className="fa-solid fa-trophy text-lg sm:text-xl"></i>
@@ -115,7 +121,9 @@ const App = () => {
               <Link
                 to="/login"
                 className={`flex flex-col items-center p-2 ${
-                  isActive("/login") ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+                  isActive("/login")
+                    ? "text-[#e26b00]"
+                    : "text-stone-700 hover:text-[#e26b00]"
                 }`}
               >
                 <i className="fa-solid fa-user text-lg sm:text-xl"></i>
@@ -128,7 +136,9 @@ const App = () => {
                 to="/login"
                 onClick={logout}
                 className={`flex flex-col items-center p-2 ${
-                  isActive("/login") ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+                  isActive("/login")
+                    ? "text-[#e26b00]"
+                    : "text-stone-700 hover:text-[#e26b00]"
                 }`}
               >
                 <i className="fa-solid fa-right-from-bracket text-lg sm:text-xl"></i>

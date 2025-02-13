@@ -55,7 +55,11 @@ const SearchResultsPage = () => {
   }, [query]);
 
   if (loading) {
-    return <p className="flex items-center justify-center text-gray-500 italic mb-4"><i className="fa-solid fa-spinner fa-spin"></i></p>
+    return (
+      <p className="flex items-center justify-center text-gray-500 italic mb-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+      </p>
+    );
   }
 
   return (

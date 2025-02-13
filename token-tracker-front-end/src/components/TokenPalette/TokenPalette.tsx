@@ -8,7 +8,13 @@ interface TokenPaletteProps {
   setPaletteName: (value: string) => void;
 }
 
-const TokenPalette = ({ onSelect, onCreate, palettes, paletteName, setPaletteName }: TokenPaletteProps) => {
+const TokenPalette = ({
+                        onSelect,
+                        onCreate,
+                        palettes,
+                        paletteName,
+                        setPaletteName,
+                      }: TokenPaletteProps) => {
   return (
     <div className="flex flex-col justify-center items-center bg-gray-100">
       <div className="bg-white w-full max-w-xl p-6 rounded-lg shadow-lg border border-gray-300">
@@ -36,25 +42,24 @@ const TokenPalette = ({ onSelect, onCreate, palettes, paletteName, setPaletteNam
           {palettes.length} Saved Palettes
         </h2>
         <div className="space-y-4 max-h-64 overflow-y-auto">
-
-        {palettes.length > 0 ? (
-          <ul className="space-y-4">
-            {palettes.map((palette) => (
-              <li
-                key={palette.id}
-                onClick={() => onSelect(palette.id)}
-                className="px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm text-center cursor-pointer hover:bg-gray-200 transition"
-              >
-                {palette.name}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="italic text-gray-500 text-center">
-            No token palettes found. Create one above to get started!
-          </p>
-        )}
-      </div>
+          {palettes.length > 0 ? (
+            <ul className="space-y-4">
+              {palettes.map((palette) => (
+                <li
+                  key={palette.id}
+                  onClick={() => onSelect(palette.id)}
+                  className="px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm text-center cursor-pointer hover:bg-gray-200 transition"
+                >
+                  {palette.name}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="italic text-gray-500 text-center">
+              No token palettes found. Create one above to get started!
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

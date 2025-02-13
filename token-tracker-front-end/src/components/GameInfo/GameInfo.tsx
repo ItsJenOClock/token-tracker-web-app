@@ -22,11 +22,15 @@ const GameInfo: React.FC<GameInfoProps> = ({
       <div className="text-gray-700 text-base space-y-4">
         <div className="flex justify-between items-center">
           <span className="font-medium text-*">Selected Palette:</span>
-          <strong className="text-gray-900 text-*">{game.tokenPalette.name}</strong>
+          <strong className="text-gray-900 text-*">
+            {game.tokenPalette.name}
+          </strong>
         </div>
         <div className="flex justify-between items-center">
           <span className="font-medium text-*">Game Started At:</span>
-          <strong className="text-gray-900 text-*">{new Date(game.createdAt).toLocaleString()}</strong>
+          <strong className="text-gray-900 text-*">
+            {new Date(game.createdAt).toLocaleString()}
+          </strong>
         </div>
       </div>
 

@@ -50,7 +50,9 @@ const AddTokenToPalette = ({
         >
           <div className="relative bg-white w-full max-w-sm mx-auto rounded-lg shadow-md p-4 border border-gray-300 pb-2">
             <div className="flex justify-between items-center border-b pb-2">
-              <h3 className="text-lg font-medium text-gray-900 text-center">Success</h3>
+              <h3 className="text-lg font-medium text-gray-900 text-center">
+                Success
+              </h3>
               <button
                 onClick={() => setShowModal(false)}
                 className="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2 cursor-pointer"

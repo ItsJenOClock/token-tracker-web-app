@@ -74,7 +74,6 @@ const SearchResults = ({
     }
   };
 
-
   const toggleImageEnlarge = (imageUri: string | null) => {
     setEnlargedImage(imageUri);
   };
@@ -202,12 +201,13 @@ const SearchResults = ({
                               </div>
 
                               <div className="py-4 text-center">
-                                <p className="text-sm text-gray-500">Token added to the board! 🎉</p>
+                                <p className="text-sm text-gray-500">
+                                  Token added to the board! 🎉
+                                </p>
                               </div>
                             </div>
                           </div>
                         )}
-
                       </div>
                     )}
                   </div>

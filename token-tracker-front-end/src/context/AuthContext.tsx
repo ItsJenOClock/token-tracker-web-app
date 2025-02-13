@@ -20,7 +20,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
   const [redirectAfterLogin, setRedirectAfterLogin] = useState<string | null>(
-    null
+    null,
   );
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 

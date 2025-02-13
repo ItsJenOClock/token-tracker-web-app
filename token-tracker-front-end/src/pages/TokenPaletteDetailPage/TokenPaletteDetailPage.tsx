@@ -30,7 +30,9 @@ const TokenPaletteDetailPage = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [confirmationLoading, setConfirmationLoading] = useState(false);
-  const [modalType, setModalType] = useState<"deletePalette" | "deleteToken" | null>(null);
+  const [modalType, setModalType] = useState<
+    "deletePalette" | "deleteToken" | null
+  >(null);
   const [selectedToken, setSelectedToken] = useState<Token | null>(null);
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
 
@@ -80,7 +82,8 @@ const TokenPaletteDetailPage = () => {
   };
 
   const handleEditPaletteName = async () => {
-    if (!id || newPaletteName.trim() === "" || newPaletteName === palette?.name) return;
+    if (!id || newPaletteName.trim() === "" || newPaletteName === palette?.name)
+      return;
 
     try {
       await updateTokenPaletteName(id, newPaletteName);
@@ -151,8 +154,11 @@ const TokenPaletteDetailPage = () => {
   };
 
   if (loading) {
-    return <p className="flex items-center justify-center text-gray-500 italic"><i
-      className="fa-solid fa-spinner fa-spin"></i></p>;
+    return (
+      <p className="flex items-center justify-center text-gray-500 italic">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+      </p>
+    );
   }
 
   if (error) {
@@ -161,53 +167,57 @@ const TokenPaletteDetailPage = () => {
 
   return (
     <div className="flex flex-col items-center bg-gray-100">
-        <button
-          onClick={() => setShowSearch((prev) => !prev)}
-          className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 cursor-pointer mb-4"
-        >
-          {showSearch ? (
-            <>
-              <i className="fa-solid fa-eye-slash"></i> Hide Search
-            </>
-          ) : (
-            <>
-              <i className="fa-solid fa-eye"></i> Show Search
-            </>
-          )}
-        </button>
-            {showSearch && (
-              <div className="flex flex-col gap-4 w-full">
-                <div>
-                  <Search onSearch={handleSearch} loading={searchLoading} />
-                  {searchLoading && (
-                    <p className="flex items-center justify-center text-gray-500 italic mb-4">
-                      <i className="fa-solid fa-spinner fa-spin"></i>
-                    </p>
-                  )}
-
-                  {!searchLoading && searchPerformed && searchResults.length === 0 && (
-                    <p className="flex items-center justify-center text-gray-500 italic">
-                      No results found.
-                    </p>
-                  )}
-                </div>
-
-                {searchPerformed && (
-                  <div className="search-results-container">
-                    {searchResults.length > 0 ? (
-                      <SearchResults
-                        results={searchResults}
-                        tokenPalettes={allPalettes}
-                        selectedPalettes={{}}
-                        onPaletteChange={handlePaletteChange}
-                        currentGameId={null}
-                        defaultSelectedPalette={palette?.id || null}
-                      />
-                    ) : ""}
-                  </div>
-                )}
-              </div>
+      <button
+        onClick={() => setShowSearch((prev) => !prev)}
+        className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 cursor-pointer mb-4"
+      >
+        {showSearch ? (
+          <>
+            <i className="fa-solid fa-eye-slash"></i> Hide Search
+          </>
+        ) : (
+          <>
+            <i className="fa-solid fa-eye"></i> Show Search
+          </>
+        )}
+      </button>
+      {showSearch && (
+        <div className="flex flex-col gap-4 w-full">
+          <div>
+            <Search onSearch={handleSearch} loading={searchLoading} />
+            {searchLoading && (
+              <p className="flex items-center justify-center text-gray-500 italic mb-4">
+                <i className="fa-solid fa-spinner fa-spin"></i>
+              </p>
             )}
+
+            {!searchLoading &&
+              searchPerformed &&
+              searchResults.length === 0 && (
+                <p className="flex items-center justify-center text-gray-500 italic">
+                  No results found.
+                </p>
+              )}
+          </div>
+
+          {searchPerformed && (
+            <div className="search-results-container">
+              {searchResults.length > 0 ? (
+                <SearchResults
+                  results={searchResults}
+                  tokenPalettes={allPalettes}
+                  selectedPalettes={{}}
+                  onPaletteChange={handlePaletteChange}
+                  currentGameId={null}
+                  defaultSelectedPalette={palette?.id || null}
+                />
+              ) : (
+                ""
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="bg-white w-full max-w-5xl p-6 rounded-lg shadow-lg border border-gray-300 mb-4">
         <div className="flex justify-between items-center">
@@ -267,7 +277,10 @@ const TokenPaletteDetailPage = () => {
               key={token.id}
               className="bg-gray-100 border border-gray-300 p-4 rounded-lg shadow-md hover:shadow-lg transition"
             >
-              <Link to={`/token/${token.tokenType.oracleId}/${token.tokenType.side}`} className="text-blue-500 hover:underline block text-center">
+              <Link
+                to={`/token/${token.tokenType.oracleId}/${token.tokenType.side}`}
+                className="text-blue-500 hover:underline block text-center"
+              >
                 <strong className="block">{token.tokenType.name}</strong>
               </Link>
               {token.tokenType.art ? (
@@ -298,7 +311,9 @@ const TokenPaletteDetailPage = () => {
           <div className="bg-white w-full max-w-sm mx-auto rounded-lg shadow-md p-4 border border-gray-300">
             <div className="flex justify-between items-center pb-2 border-b">
               <h3 className="text-lg font-medium text-gray-900">
-                {modalType === "deletePalette" ? "Delete Palette" : "Delete Token"}
+                {modalType === "deletePalette"
+                  ? "Delete Palette"
+                  : "Delete Token"}
               </h3>
               <button
                 onClick={() => setShowModal(false)}
@@ -309,7 +324,10 @@ const TokenPaletteDetailPage = () => {
             </div>
             <div className="py-4 text-center">
               <p className="text-sm text-gray-500">
-                Are you sure you want to {modalType === "deletePalette" ? "delete this palette?" : `delete the token "${selectedToken?.tokenType.name}"?`}
+                Are you sure you want to{" "}
+                {modalType === "deletePalette"
+                  ? "delete this palette?"
+                  : `delete the token "${selectedToken?.tokenType.name}"?`}
               </p>
               <div className="flex justify-center mt-4 gap-2">
                 <button

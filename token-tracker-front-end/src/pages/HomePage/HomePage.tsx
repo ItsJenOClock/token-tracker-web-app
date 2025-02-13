@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {Link, useLocation, useNavigate} from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useAuth } from "../../context/AuthContext";
 import Search from "../../components/Search/Search";
 import SearchResults from "../../components/SearchResults/SearchResults";
@@ -83,22 +83,28 @@ const HomePage = () => {
 
       {showLoginMessage && (
         <p className="flex items-center justify-center text-gray-500 mb-4">
-    <span>
-      <Link
-        to="/login"
-        className="text-blue-500 hover:underline  transition-colors"
-      >
-        Log in or create an account
-      </Link>{" "}
-      for full access.
-    </span>
+          <span>
+            <Link
+              to="/login"
+              className="text-blue-500 hover:underline  transition-colors"
+            >
+              Log in or create an account
+            </Link>{" "}
+            for full access.
+          </span>
         </p>
       )}
 
-      {loading && <p className="flex items-center justify-center text-gray-500 italic mb-4"><i className="fa-solid fa-spinner fa-spin"></i></p>}
+      {loading && (
+        <p className="flex items-center justify-center text-gray-500 italic mb-4">
+          <i className="fa-solid fa-spinner fa-spin"></i>
+        </p>
+      )}
 
       {!loading && searchPerformed && searchResults.length === 0 && (
-        <p className="flex items-center justify-center text-gray-500 italic mb-4">No results found.</p>
+        <p className="flex items-center justify-center text-gray-500 italic mb-4">
+          No results found.
+        </p>
       )}
 
       {!loading && searchResults.length > 0 && (
@@ -117,23 +123,25 @@ const HomePage = () => {
         <div>
           <GameInfo game={currentGame} showResumeButton={true} />
         </div>
-      ) : ("")}
+      ) : (
+        ""
+      )}
 
       <div className="flex flex-col items-center bg-gray-100 mt-4 mb-4">
         <div className="bg-white w-full max-w-xl p-6 rounded-lg shadow-lg border border-gray-300">
-        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
-          New Game
-        </h2>
-        <div className="flex justify-center">
-          <button
-            onClick={() => navigate("/start-game")}
-            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md cursor-pointer flex items-center justify-center gap-2"
-          >
-            <i class="fa-solid fa-hourglass-start"></i>
-            {currentGame ? "Start New Game" : "Start New Game"}
-          </button>
+          <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
+            New Game
+          </h2>
+          <div className="flex justify-center">
+            <button
+              onClick={() => navigate("/start-game")}
+              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md cursor-pointer flex items-center justify-center gap-2"
+            >
+              <i class="fa-solid fa-hourglass-start"></i>
+              {currentGame ? "Start New Game" : "Start New Game"}
+            </button>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );

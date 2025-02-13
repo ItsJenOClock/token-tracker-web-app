@@ -25,7 +25,7 @@ import SearchResults from "../../components/SearchResults/SearchResults";
 import "../../assets/styles/App.css";
 
 const GameInstancePage = () => {
-  const {id} = useParams<{ id?: string }>();
+  const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
   const [game, setGame] = useState<GameInstance | null>(null);
   const [tokens, setTokens] = useState<Token[]>([]);
@@ -40,11 +40,16 @@ const GameInstancePage = () => {
   const [allPalettes, setAllPalettes] = useState<TokenPaletteType[]>([]);
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
-  const [modalType, setModalType] = useState<"deleteToken" | "endGame" | null>(null);
+  const [modalType, setModalType] = useState<"deleteToken" | "endGame" | null>(
+    null,
+  );
   const [showModal, setShowModal] = useState(false);
   const [selectedToken, setSelectedToken] = useState<GameToken | null>(null);
   const [confirmationLoading, setConfirmationLoading] = useState(false);
-  const openConfirmationModal = (type: "deleteToken" | "endGame", token?: GameToken) => {
+  const openConfirmationModal = (
+    type: "deleteToken" | "endGame",
+    token?: GameToken,
+  ) => {
     setModalType(type);
     setSelectedToken(token || null);
     setShowModal(true);
@@ -83,7 +88,9 @@ const GameInstancePage = () => {
     try {
       if (modalType === "deleteToken" && selectedToken) {
         await deleteGameToken(id!, selectedToken.id);
-        setGameTokens((prevTokens) => prevTokens.filter((t) => t.id !== selectedToken.id));
+        setGameTokens((prevTokens) =>
+          prevTokens.filter((t) => t.id !== selectedToken.id),
+        );
       } else if (modalType === "endGame") {
         await endGame(id!);
         navigate("/");
@@ -133,7 +140,7 @@ const GameInstancePage = () => {
 
       setGameTokens((prevTokens) =>
         prevTokens.map((token) =>
-          token.id === tokenId ? {...token, ...updatedToken} : token,
+          token.id === tokenId ? { ...token, ...updatedToken } : token,
         ),
       );
     } catch (err) {
@@ -226,10 +233,24 @@ const GameInstancePage = () => {
     setEnlargedImage(imageUri);
   };
 
-
-  if (loading) return <p className="flex items-center justify-center text-gray-500 italic">Loading game...</p>;
-  if (error) return <p className="flex items-center justify-center text-gray-500 italic">{error}</p>;
-  if (!game) return <p className="flex items-center justify-center text-gray-500 italic">Game not found.</p>;
+  if (loading)
+    return (
+      <p className="flex items-center justify-center text-gray-500 italic">
+        Loading game...
+      </p>
+    );
+  if (error)
+    return (
+      <p className="flex items-center justify-center text-gray-500 italic">
+        {error}
+      </p>
+    );
+  if (!game)
+    return (
+      <p className="flex items-center justify-center text-gray-500 italic">
+        Game not found.
+      </p>
+    );
 
   return (
     <div>
@@ -250,18 +271,22 @@ const GameInstancePage = () => {
         </button>
 
         {showSearch && (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 w-full">
             <div>
-              <Search onSearch={handleSearch} loading={searchLoading}/>
+              <Search onSearch={handleSearch} loading={searchLoading} />
               {searchLoading && (
-                <p className="flex items-center justify-center text-gray-500 italic mb-4"><i className="fa-solid fa-spinner fa-spin"></i></p>
-              )}
-
-              {!searchLoading && searchPerformed && searchResults.length === 0 && (
-                <p className="flex items-center justify-center text-gray-500 italic w-auto">
-                  No results found.
+                <p className="flex items-center justify-center text-gray-500 italic mb-4">
+                  <i className="fa-solid fa-spinner fa-spin"></i>
                 </p>
               )}
+
+              {!searchLoading &&
+                searchPerformed &&
+                searchResults.length === 0 && (
+                  <p className="flex items-center justify-center text-gray-500 italic w-auto">
+                    No results found.
+                  </p>
+                )}
             </div>
 
             {searchPerformed && (
@@ -276,7 +301,9 @@ const GameInstancePage = () => {
                     currentGameId={game?.id || null}
                     onAddToGame={handleAddCurrentGameToken}
                   />
-                ) : ""}
+                ) : (
+                  ""
+                )}
               </div>
             )}
           </div>
@@ -417,7 +444,9 @@ const GameInstancePage = () => {
                     <i className="fa-solid fa-circle-plus"></i>
                   </button>
                   <button
-                    onClick={() => openConfirmationModal("deleteToken", gameToken)}
+                    onClick={() =>
+                      openConfirmationModal("deleteToken", gameToken)
+                    }
                     // onClick={() => handleDeleteGameToken(gameToken.id)}
                     className="px-4 py-3 text-stone-500 hover:text-stone-600 text-xl cursor-pointer"
                   >
@@ -478,7 +507,9 @@ const GameInstancePage = () => {
             </div>
 
             <div className="py-4 text-center">
-              <p className="text-sm text-gray-500">Token added to the board! 🎉</p>
+              <p className="text-sm text-gray-500">
+                Token added to the board! 🎉
+              </p>
             </div>
           </div>
         </div>
@@ -523,28 +554,32 @@ const GameInstancePage = () => {
                   {confirmationLoading ? (
                     <>
                       <i className="fa-solid fa-spinner fa-spin"></i>
-                      {modalType === "deleteToken" ? "Deleting..." : "Ending..."}
+                      {modalType === "deleteToken"
+                        ? "Deleting..."
+                        : "Ending..."}
                     </>
                   ) : (
                     <>
                       <i
                         className={`fa-solid ${
-                          modalType === "deleteToken" ? "fa-trash-can" : "fa-hourglass-end"
+                          modalType === "deleteToken"
+                            ? "fa-trash-can"
+                            : "fa-hourglass-end"
                         }`}
                       ></i>
-                      {modalType === "deleteToken" ? "Yes, Delete" : "Yes, End Game"}
+                      {modalType === "deleteToken"
+                        ? "Yes, Delete"
+                        : "Yes, End Game"}
                     </>
                   )}
                 </button>
-
               </div>
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
-}
+};
 
 export default GameInstancePage;
