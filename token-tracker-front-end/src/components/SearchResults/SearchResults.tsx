@@ -26,6 +26,7 @@ const SearchResults = ({
                        }: SearchResultsProps) => {
   const { loggedInUser } = useAuth();
   const location = useLocation();
+  const [showGameSuccessModal, setShowGameSuccessModal] = useState(false);
 
   const [localSelectedPalettes, setLocalSelectedPalettes] = useState<{
     [key: string]: string;
@@ -63,8 +64,8 @@ const SearchResults = ({
 
     try {
       await onAddToGame(oracleId, side);
-      setGameConfirmation(`${oracleId}-${side}`);
-      setTimeout(() => setGameConfirmation(null), 2000);
+      setShowGameSuccessModal(true);
+      setTimeout(() => setShowGameSuccessModal(false), 2000);
     } catch (error) {
       console.error("Error adding token to game:", error);
       alert(
@@ -72,6 +73,7 @@ const SearchResults = ({
       );
     }
   };
+
 
   const toggleImageEnlarge = (imageUri: string | null) => {
     setEnlargedImage(imageUri);
@@ -87,7 +89,7 @@ const SearchResults = ({
 
   return (
     <div className="flex flex-col items-center bg-gray-100">
-      <div className="bg-white w-full max-w-5xl p-6 rounded-lg shadow-lg border border-gray-300">
+      <div className="bg-white w-full max-w-5xl p-6 rounded-lg shadow-lg border border-gray-300 mb-4">
         <h3 className="text-xl font-semibold text-center text-gray-800 mb-4">
           Search Results
         </h3>
@@ -113,8 +115,8 @@ const SearchResults = ({
                 >
                   <strong className="block">{card.name}</strong>
                 </Link>
-
-                <p className="text-gray-700 text-center">{card.typeLine || "Unknown Type"}</p>
+                {/*/!* showing type line in search results*!/*/}
+                {/*<p className="text-gray-700 text-center">{card.typeLine || "Unknown Type"}</p>*/}
 
                 {card.imageUri ? (
                   <img
@@ -172,15 +174,40 @@ const SearchResults = ({
                               card.side,
                             )
                           }
-                          className="cursor-pointer px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full"
+                          className="cursor-pointer px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 w-full"
                         >
-                          Add to Current Game
+                          <i className="fa-solid fa-plus"></i> Add to Game
                         </button>
-                        {gameConfirmation === `${card.oracleId}-${card.side}` && (
-                          <p className="text-green-500 mt-2 text-center">
-                            Token added to the game!
-                          </p>
+
+                        {showGameSuccessModal && (
+                          <div
+                            className="fixed inset-0 flex justify-center items-center z-50"
+                            onClick={() => setShowGameSuccessModal(false)}
+                          >
+                            <div
+                              className="bg-white w-full max-w-sm mx-auto rounded-lg shadow-md p-4 border border-gray-300"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <div className="flex justify-between items-center pb-2 border-b">
+                                <h3 className="text-lg font-medium text-gray-900 text-center">
+                                  Success
+                                </h3>
+                                <button
+                                  onClick={() => setShowGameSuccessModal(false)}
+                                  className="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2 cursor-pointer"
+                                  aria-label="Close"
+                                >
+                                  <i className="fa-solid fa-circle-xmark w-6 h-6"></i>
+                                </button>
+                              </div>
+
+                              <div className="py-4 text-center">
+                                <p className="text-sm text-gray-500">Token added to the game! 🎉</p>
+                              </div>
+                            </div>
+                          </div>
                         )}
+
                       </div>
                     )}
                   </div>

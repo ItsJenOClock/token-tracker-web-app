@@ -37,9 +37,9 @@ const AddTokenToPalette = ({
     <div className="flex justify-center items-center">
       <button
         onClick={handleAdd}
-        className="px-4 py-2 bg-blue-500 text-white font-bold rounded hover:opacity-90 cursor-pointer mt-4"
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer mt-4 w-full"
       >
-        Add to Palette
+        <i class="fa-solid fa-plus"></i> Add to Palette
       </button>
 
       {showModal && (
@@ -69,7 +69,7 @@ const AddTokenToPalette = ({
                 >
                   palette
                 </Link>
-                !
+                ! 🎉
               </p>
             </div>
           </div>
