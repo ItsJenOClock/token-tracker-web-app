@@ -26,15 +26,15 @@ const TokenPalette = ({ onSelect, onCreate, palettes, paletteName, setPaletteNam
             onClick={onCreate}
             className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md focus:outline-none focus:ring focus:ring-blue-400 cursor-pointer"
           >
-            <i class="fa-solid fa-plus"></i> Create
+            <i class="fa-solid fa-folder-plus"></i> Create
           </button>
         </div>
       </div>
 
-      <div className="mt-12 bg-white w-full max-w-xl p-6 rounded-lg shadow-lg border border-gray-300">
-        <h3 className="text-xl font-semibold text-center text-gray-800 mb-4">
+      <div className="mt-4 bg-white w-full max-w-xl p-6 rounded-lg shadow-lg border border-gray-300">
+        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
           Existing Palettes
-        </h3>
+        </h2>
         {palettes.length > 0 ? (
           <ul className="space-y-4">
             {palettes.map((palette) => (
