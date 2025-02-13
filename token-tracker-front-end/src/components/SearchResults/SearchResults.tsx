@@ -65,7 +65,7 @@ const SearchResults = ({
     try {
       await onAddToGame(oracleId, side);
       setShowGameSuccessModal(true);
-      setTimeout(() => setShowGameSuccessModal(false), 2000);
+      setTimeout(() => setShowGameSuccessModal(false), 0);
     } catch (error) {
       console.error("Error adding token to game:", error);
       alert(
@@ -202,7 +202,7 @@ const SearchResults = ({
                               </div>
 
                               <div className="py-4 text-center">
-                                <p className="text-sm text-gray-500">Token added to the game! 🎉</p>
+                                <p className="text-sm text-gray-500">Token added to the board! 🎉</p>
                               </div>
                             </div>
                           </div>

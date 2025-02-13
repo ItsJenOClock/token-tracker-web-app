@@ -120,7 +120,7 @@ const TokenPaletteDetailPage = () => {
       }
     } catch (error) {
       console.error("Error deleting item:", error);
-      // setError("An error occurred while deleting. Please try again.");
+      setError("An error occurred while deleting. Please try again.");
     } finally {
       setConfirmationLoading(false);
       setShowModal(false);
@@ -151,7 +151,8 @@ const TokenPaletteDetailPage = () => {
   };
 
   if (loading) {
-    return <p className="flex items-center justify-center text-gray-500 italic">Loading palette details...</p>;
+    return <p className="flex items-center justify-center text-gray-500 italic"><i
+      className="fa-solid fa-spinner fa-spin"></i></p>;
   }
 
   if (error) {
@@ -179,8 +180,8 @@ const TokenPaletteDetailPage = () => {
                 <div>
                   <Search onSearch={handleSearch} loading={searchLoading} />
                   {searchLoading && (
-                    <p className="flex items-center justify-center text-gray-500 italic">
-                      Loading...
+                    <p className="flex items-center justify-center text-gray-500 italic mb-4">
+                      <i className="fa-solid fa-spinner fa-spin"></i>
                     </p>
                   )}
 

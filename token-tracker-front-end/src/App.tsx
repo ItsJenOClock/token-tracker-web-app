@@ -34,7 +34,7 @@ const App = () => {
   };
 
     return (
-    <>
+    <div className="bg-gray-100 min-h-screen flex flex-col">
       <header className="w-full flex justify-center py-4 bg-gray-100">
         <img
           src={logo}
@@ -45,8 +45,8 @@ const App = () => {
           }`}
         />
       </header>
-      <main className="pb-80 bg-gray-100" >
-      <Routes>
+      <main className="pb-20 bg-gray-100" >
+        <Routes>
         <Route path="/" element={<HomePage key={homeKey} />} />
         <Route path="/search" element={<SearchResultsPage />} />
         <Route
@@ -65,6 +65,11 @@ const App = () => {
         />
         <Route path="/game/:id" element={<GameInstancePage />} />
       </Routes>
+        {loggedInUser && (
+          <div className="text-center text-stone-700">
+            Casting spells as: {loggedInUser} ✨
+          </div>
+        )}
       </main>
       <nav className="fixed bottom-0 w-full border-t border-gray-200 bg-white">
         <ul className="flex justify-between text-center text-xs sm:text-sm">
@@ -119,20 +124,21 @@ const App = () => {
             </li>
           ) : (
             <li className="flex-1">
-              <div className="flex flex-col items-center text-stone-700">
-                <span>{loggedInUser}</span>
-                <button
-                  onClick={logout}
-                  className="text-lg sm:text-xl hover:text-red-500 cursor-pointer"
-                >
-                  <i className="fa-solid fa-right-from-bracket"></i>
-                </button>
-              </div>
+              <Link
+                to="/login"
+                onClick={logout}
+                className={`flex flex-col items-center p-2 ${
+                  isActive("/login") ? "text-[#e26b00]" : "text-stone-700 hover:text-[#e26b00]"
+                }`}
+              >
+                <i className="fa-solid fa-right-from-bracket text-lg sm:text-xl"></i>
+                <span>Logout</span>
+              </Link>
             </li>
           )}
         </ul>
       </nav>
-    </>
+    </div>
   );
 };
 

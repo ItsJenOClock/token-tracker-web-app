@@ -55,7 +55,7 @@ const TokenDetailsPage = () => {
     }
   };
 
-  if (loading) return <p className="flex items-center justify-center text-gray-500 italic text-center mb-4">Loading...</p>;
+  if (loading) return <p className="flex items-center justify-center text-gray-500 italic mb-4"><i className="fa-solid fa-spinner fa-spin"></i></p>;
 
   if (error) return <p className="flex items-center justify-center text-red-500 text-center mb-4">{error}</p>;
 

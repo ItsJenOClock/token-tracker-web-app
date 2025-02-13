@@ -72,19 +72,20 @@ const StartGame = () => {
   };
 
   return (
+    <div className="bg-gray-100 flex justify-center">
     <div className="flex flex-col items-center bg-gray-100 p-4">
       <div className="bg-white w-full max-w-xl p-6 rounded-lg shadow-lg border border-gray-300">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           Start a New Game
         </h2>
 
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        {error && <p className="flex items-center justify-center text-red-500 italic text-center mb-4">{error}</p>}
 
         {tokenPalettes.length === 0 ? (
           <p className="italic text-gray-500 text-center">
             No token palettes found.{" "}
             <a href="/token-palettes" className="text-blue-500 underline">
-              Create a token palette here.
+              Create a token palette here!
             </a>
           </p>
         ) : (
@@ -92,7 +93,7 @@ const StartGame = () => {
             <select
               value={selectedPalette}
               onChange={(e) => setSelectedPalette(e.target.value)}
-              className="flex-1 border border-gray-300 rounded-lg p-2 text-gray-700 cursor-pointer"
+              className="flex-1 border border-gray-300 rounded-lg text-gray-700 cursor-pointer"
             >
               <option value="">-- Select a Palette --</option>
               {tokenPalettes.map((palette) => (
@@ -183,6 +184,7 @@ const StartGame = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -42,7 +42,7 @@ const TokenPalettePage = () => {
 
 
   return (
-    <div className="flex flex-col items-center bg-gray-100">
+    <div className="flex flex-col items-center bg-gray-100 mt-4">
       <TokenPalette
         onSelect={handlePaletteClick}
         onCreate={handleCreatePalette}
@@ -71,18 +71,13 @@ const TokenPalettePage = () => {
 
             <div className="py-4 text-center">
               <p className="text-sm text-gray-500">
-                Token palette created! 🎉
+                <a
+                  href={`/token-palettes/${currentPaletteId}`}
+                  className="text-blue-500 underline text-sm"
+                >
+                  Token palette
+                </a> created! 🎉
               </p>
-              {currentPaletteId && (
-                <p>
-                  <a
-                    href={`/token-palettes/${currentPaletteId}`}
-                    className="text-blue-500 underline text-sm"
-                  >
-                    View Palette
-                  </a>
-                </p>
-              )}
             </div>
           </div>
         </div>

@@ -31,10 +31,12 @@ const TokenPalette = ({ onSelect, onCreate, palettes, paletteName, setPaletteNam
         </div>
       </div>
 
-      <div className="mt-4 bg-white w-full max-w-xl p-6 rounded-lg shadow-lg border border-gray-300">
+      <div className="mt-4 bg-white w-full max-w-xl p-6 rounded-lg shadow-lg border border-gray-300 mb-4">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-          Existing Palettes
+          {palettes.length} Saved Palettes
         </h2>
+        <div className="space-y-4 max-h-64 overflow-y-auto">
+
         {palettes.length > 0 ? (
           <ul className="space-y-4">
             {palettes.map((palette) => (
@@ -49,9 +51,10 @@ const TokenPalette = ({ onSelect, onCreate, palettes, paletteName, setPaletteNam
           </ul>
         ) : (
           <p className="italic text-gray-500 text-center">
-            No palettes available. Create one above to get started!
+            No token palettes found. Create one above to get started!
           </p>
         )}
+      </div>
       </div>
     </div>
   );

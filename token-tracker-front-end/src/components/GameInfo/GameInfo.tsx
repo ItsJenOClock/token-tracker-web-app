@@ -21,12 +21,12 @@ const GameInfo: React.FC<GameInfoProps> = ({
 
       <div className="text-gray-700 text-base space-y-4">
         <div className="flex justify-between items-center">
-          <span className="font-medium">Selected Palette:</span>
-          <strong className="text-gray-900">{game.tokenPalette.name}</strong>
+          <span className="font-medium text-*">Selected Palette:</span>
+          <strong className="text-gray-900 text-*">{game.tokenPalette.name}</strong>
         </div>
         <div className="flex justify-between items-center">
-          <span className="font-medium">Started:</span>
-          <strong className="text-gray-900">{new Date(game.createdAt).toLocaleString()}</strong>
+          <span className="font-medium text-*">Game Started At:</span>
+          <strong className="text-gray-900 text-*">{new Date(game.createdAt).toLocaleString()}</strong>
         </div>
       </div>
 
@@ -36,7 +36,7 @@ const GameInfo: React.FC<GameInfoProps> = ({
             onClick={() => navigate(`/game/${game.id}`)}
             className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md focus:outline-none focus:ring focus:ring-blue-400 cursor-pointer"
           >
-            <i class="fa-solid fa-play"></i> Resume
+            <i className="fa-solid fa-play"></i> Resume
           </button>
         </div>
       )}
