@@ -7,12 +7,12 @@ import {
   addTokenToCurrentGame,
 } from "../../services/api";
 import SearchResults from "../../components/SearchResults/SearchResults";
-import { TokenPaletteType } from "../../types/types";
+import { TokenPaletteType, TokenSearchResult } from "../../types/types";
 
 const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q") || "";
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<TokenSearchResult[]>([]);
   const [loading, setLoading] = useState(true);
   const [tokenPalettes, setTokenPalettes] = useState<TokenPaletteType[]>([]);
   const [currentGame, setCurrentGame] = useState<any | null>(null);

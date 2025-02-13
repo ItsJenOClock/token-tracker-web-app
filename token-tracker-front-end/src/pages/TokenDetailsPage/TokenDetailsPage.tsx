@@ -7,7 +7,7 @@ import {
   addTokenToPalette,
 } from "../../services/api";
 import AddTokenToPalette from "../../components/AddTokenToPalette/AddTokenToPalette";
-import { TokenDetails } from "../../types/types";
+import {TokenDetails, TokenPaletteType} from "../../types/types";
 
 const TokenDetailsPage = () => {
   const { oracleId, side } = useParams();
@@ -133,7 +133,7 @@ const TokenDetailsPage = () => {
               className="block w-full border border-gray-300 rounded-lg p-2"
             >
               <option value="">-- Select a Palette --</option>
-              {tokenPalettes.map((palette) => (
+              {tokenPalettes.map((palette: TokenPaletteType) => (
                 <option key={palette.id} value={palette.id}>
                   {palette.name}
                 </option>

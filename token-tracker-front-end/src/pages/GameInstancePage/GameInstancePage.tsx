@@ -148,31 +148,31 @@ const GameInstancePage = () => {
     }
   };
 
-  const handleDeleteGameToken = async (tokenId: string) => {
-    const gameToken = gameTokens.find((t) => t.id === tokenId);
-
-    if (!gameToken) {
-      console.error(`Token with ID ${tokenId} not found`);
-      return;
-    }
-
-    if (
-      !window.confirm(
-        `Are you sure you want to delete ${gameToken.tokenType.name}?`,
-      )
-    )
-      return;
-
-    try {
-      await deleteGameToken(id!, tokenId);
-      setGameTokens((prevTokens) =>
-        prevTokens.filter((token) => token.id !== tokenId),
-      );
-    } catch (err) {
-      console.error("Failed to delete token from game instance:", err);
-      alert("Failed to delete token.");
-    }
-  };
+  // const handleDeleteGameToken = async (tokenId: string) => {
+  //   const gameToken = gameTokens.find((t) => t.id === tokenId);
+  //
+  //   if (!gameToken) {
+  //     console.error(`Token with ID ${tokenId} not found`);
+  //     return;
+  //   }
+  //
+  //   if (
+  //     !window.confirm(
+  //       `Are you sure you want to delete ${gameToken.tokenType.name}?`,
+  //     )
+  //   )
+  //     return;
+  //
+  //   try {
+  //     await deleteGameToken(id!, tokenId);
+  //     setGameTokens((prevTokens) =>
+  //       prevTokens.filter((token) => token.id !== tokenId),
+  //     );
+  //   } catch (err) {
+  //     console.error("Failed to delete token from game instance:", err);
+  //     alert("Failed to delete token.");
+  //   }
+  // };
 
   const handleAddToPalette = async (
     oracleId: string,
@@ -224,10 +224,10 @@ const GameInstancePage = () => {
     }
   };
 
-  const handleEndGame = async () => {
-    openConfirmationModal("endGame");
-    navigate("/");
-  };
+  // const handleEndGame = async () => {
+  //   openConfirmationModal("endGame");
+  //   navigate("/");
+  // };
 
   const toggleImageEnlarge = (imageUri: string | null) => {
     setEnlargedImage(imageUri);
@@ -351,7 +351,7 @@ const GameInstancePage = () => {
                         src={token.tokenType.art}
                         alt={token.tokenType.name}
                         className="max-w-[150px] block my-3 mx-auto rounded-lg border border-gray-300 cursor-pointer"
-                        onClick={() => toggleImageEnlarge(token.tokenType.art)}
+                        onClick={() => toggleImageEnlarge(token.tokenType.art ?? null)}
                       />
                     ) : (
                       <p className="text-gray-500 italic">No image available</p>
@@ -381,7 +381,7 @@ const GameInstancePage = () => {
             onClick={handleStartNextTurn}
             className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 cursor-pointer"
           >
-            <i class="fa-solid fa-forward-step"></i> Next Turn
+            <i className="fa-solid fa-forward-step"></i> Next Turn
           </button>
 
           <button

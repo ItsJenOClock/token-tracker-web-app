@@ -31,7 +31,6 @@ const SearchResults = ({
   const [localSelectedPalettes, setLocalSelectedPalettes] = useState<{
     [key: string]: string;
   }>({});
-  const [gameConfirmation, setGameConfirmation] = useState<string | null>(null);
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -123,7 +122,7 @@ const SearchResults = ({
                     alt={card.name}
                     loading="lazy"
                     className="token-image max-w-[150px] block my-3 mx-auto rounded-lg border border-gray-300 cursor-pointer"
-                    onClick={() => toggleImageEnlarge(card.imageUri)}
+                    onClick={() => toggleImageEnlarge(card.imageUri ?? null)}
                   />
                 ) : (
                   <p className="text-gray-500 italic">No image available</p>
@@ -232,7 +231,7 @@ const SearchResults = ({
               className="absolute top-2 right-2 text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2 cursor-pointer"
               aria-label="Close"
             >
-              <i class="fa-solid fa-circle-xmark w-6 h-6"></i>
+              <i className="fa-solid fa-circle-xmark w-6 h-6"></i>
             </button>
             <img
               src={enlargedImage}

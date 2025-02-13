@@ -57,9 +57,9 @@ const TokenPaletteDetailPage = () => {
         setAllPalettes(allPalettesData);
         const tokensData = await fetchTokensByPalette(id);
         setTokens(tokensData);
-      } catch (error: any) {
+      } catch (error) {
         console.error("Error fetching palette details or all palettes:", error);
-        setError(`Failed to load palette details. Reason: ${error.message}`);
+        setError(`Failed to load palette details.`);
       } finally {
         setLoading(false);
       }
@@ -209,7 +209,7 @@ const TokenPaletteDetailPage = () => {
                   selectedPalettes={{}}
                   onPaletteChange={handlePaletteChange}
                   currentGameId={null}
-                  defaultSelectedPalette={palette?.id || null}
+                  defaultSelectedPalette={palette?.id || undefined}
                 />
               ) : (
                 ""
@@ -235,13 +235,13 @@ const TokenPaletteDetailPage = () => {
                   className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer"
                   disabled={newPaletteName === palette?.name}
                 >
-                  <i class="fa-solid fa-floppy-disk"></i> Save
+                  <i className="fa-solid fa-floppy-disk"></i> Save
                 </button>
                 <button
                   onClick={() => setEditing(false)}
                   className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 cursor-pointer"
                 >
-                  <i class="fa-solid fa-rotate-left"></i> Cancel
+                  <i className="fa-solid fa-rotate-left"></i> Cancel
                 </button>
               </div>
             </>
@@ -253,13 +253,13 @@ const TokenPaletteDetailPage = () => {
                   onClick={() => setEditing(true)}
                   className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer"
                 >
-                  <i class="fa-solid fa-pen-to-square"></i> Edit Name
+                  <i className="fa-solid fa-pen-to-square"></i> Edit Name
                 </button>
                 <button
                   onClick={openDeletePaletteModal}
                   className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 cursor-pointer"
                 >
-                  <i class="fa-solid fa-trash-can"></i> Delete Palette
+                  <i className="fa-solid fa-trash-can"></i> Delete Palette
                 </button>
               </div>
             </>
@@ -289,7 +289,7 @@ const TokenPaletteDetailPage = () => {
                   alt={token.tokenType.name}
                   loading="lazy"
                   className="token-image max-w-[150px] block my-3 mx-auto rounded-lg border border-gray-300 cursor-pointer"
-                  onClick={() => toggleImageEnlarge(token.tokenType.art)}
+                  onClick={() => toggleImageEnlarge(token.tokenType.art ?? null)}
                 />
               ) : (
                 <p className="text-gray-500 italic">No image available</p>
@@ -299,7 +299,7 @@ const TokenPaletteDetailPage = () => {
                 onClick={() => openDeleteTokenModal(token)}
                 className="px-4 py-2 mt-4 bg-red-500 text-white rounded hover:bg-red-600 w-full cursor-pointer"
               >
-                <i class="fa-solid fa-trash-can"></i> Delete Token
+                <i className="fa-solid fa-trash-can"></i> Delete Token
               </button>
             </li>
           ))}
@@ -375,7 +375,7 @@ const TokenPaletteDetailPage = () => {
               className="absolute top-2 right-2 text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2 cursor-pointer"
               aria-label="Close"
             >
-              <i class="fa-solid fa-circle-xmark w-6 h-6"></i>
+              <i className="fa-solid fa-circle-xmark w-6 h-6"></i>
             </button>
             <img
               src={enlargedImage}

@@ -160,7 +160,7 @@ const StartGame = () => {
                     onClick={() => setShowModal(false)}
                     className="px-6 py-2 ml-4 text-sm font-semibold bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 hover:text-gray-700 cursor-pointer"
                   >
-                    <i class="fa-solid fa-rotate-left"></i> No, Cancel
+                    <i className="fa-solid fa-rotate-left"></i> No, Cancel
                   </button>
                   <button
                     onClick={handleConfirmEndGame}

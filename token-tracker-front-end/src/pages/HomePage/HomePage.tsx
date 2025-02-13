@@ -137,7 +137,7 @@ const HomePage = () => {
               onClick={() => navigate("/start-game")}
               className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md cursor-pointer flex items-center justify-center gap-2"
             >
-              <i class="fa-solid fa-hourglass-start"></i>
+              <i className="fa-solid fa-hourglass-start"></i>
               {currentGame ? "Start New Game" : "Start New Game"}
             </button>
           </div>

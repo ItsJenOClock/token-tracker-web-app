@@ -2,6 +2,7 @@ import { useState } from "react";
 
 interface SearchProps {
   onSearch: (query: string) => void;
+  loading: boolean;
 }
 
 const Search = ({ onSearch }: SearchProps) => {
@@ -38,7 +39,7 @@ const Search = ({ onSearch }: SearchProps) => {
             onClick={handleSearch}
             className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md focus:outline-none focus:ring focus:ring-blue-400 cursor-pointer"
           >
-            <i class="fa-solid fa-magnifying-glass"></i> Search
+            <i className="fa-solid fa-magnifying-glass"></i> Search
           </button>
         </div>
       </div>

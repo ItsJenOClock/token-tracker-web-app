@@ -29,10 +29,10 @@ const TokenPalette = ({
             placeholder="Enter palette name"
           />
           <button
-            onClick={onCreate}
+            onClick={() => onCreate(paletteName)}
             className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md focus:outline-none focus:ring focus:ring-blue-400 cursor-pointer"
           >
-            <i class="fa-solid fa-folder-plus"></i> Create
+            <i className="fa-solid fa-folder-plus"></i> Create
           </button>
         </div>
       </div>
