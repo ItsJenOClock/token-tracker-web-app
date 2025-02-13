@@ -32,7 +32,7 @@ export default function UserLogin() {
       navigate(redirectAfterLogin || "/");
     } catch (error) {
       console.error("Signup failed", error);
-      setErrorMessage("Unable to create user. Please try a different username.");
+      setErrorMessage("Username already exists. Please try a different username.");
     }
   };
 
@@ -49,22 +49,36 @@ export default function UserLogin() {
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value ?? "")}
-            className="w-full sm:w-auto flex-1 border border-gray-300 p-2 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-400"
+            className={`w-full sm:w-auto flex-1 border p-2 rounded-lg text-gray-700 focus:outline-none ${
+              !username.trim() ? "border-gray-300" : "border-gray-300 focus:ring-blue-400"
+            }`}
             placeholder="Enter username to create or log in"
           />
         </div>
         <div className="flex mt-4 justify-center sm:flex-row w-full">
           <button
-            onClick={handleLogin}
+            onClick={() => {
+              if (!username.trim()) {
+                setErrorMessage("Username cannot be empty. Please try again.");
+                return;
+              }
+              handleLogin();
+            }}
             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md focus:outline-none focus:ring focus:ring-blue-400 cursor-pointer w-full sm:w-auto"
           >
-            <i class="fa-solid fa-right-to-bracket"></i> Log In
+            <i className="fa-solid fa-right-to-bracket"></i> Log In
           </button>
           <button
-            onClick={handleSignup}
+            onClick={() => {
+              if (!username.trim()) {
+                setErrorMessage("Username cannot be empty. Please try again.");
+                return;
+              }
+              handleSignup();
+            }}
             className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 shadow-md focus:outline-none focus:ring focus:ring-green-400 cursor-pointer w-full sm:w-auto ml-4"
           >
-            <i class="fa-solid fa-id-badge"></i> Create User
+            <i className="fa-solid fa-user-plus"></i> Create User
           </button>
         </div>
         {errorMessage && (
