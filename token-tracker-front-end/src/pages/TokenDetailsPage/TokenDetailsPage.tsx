@@ -1,31 +1,21 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, useLocation, Link } from "react-router";
+import { useParams, useNavigate, useLocation } from "react-router";
 import { useAuth } from "../../context/AuthContext";
-import {
-  fetchTokenPalettes,
-  addTokenToPalette,
-  fetchTokenDetails,
-} from "../../services/api";
+import { fetchTokenDetails, fetchTokenPalettes, addTokenToPalette } from "../../services/api";
+import AddTokenToPalette from "../../components/AddTokenToPalette/AddTokenToPalette";
 import { TokenDetails } from "../../types/types";
-import "../../assets/styles/App.css";
 
 const TokenDetailsPage = () => {
   const { oracleId, side } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { loggedInUser } = useAuth();
+
   const [token, setToken] = useState<TokenDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [tokenPalettes, setTokenPalettes] = useState(
-    location.state?.tokenPalettes || [],
-  );
+  const [tokenPalettes, setTokenPalettes] = useState(location.state?.tokenPalettes || []);
   const [selectedPalette, setSelectedPalette] = useState("");
-  const [confirmation, setConfirmation] = useState<{
-    message: string;
-    link: string;
-    paletteName: string;
-  } | null>(null);
 
   const previousPage = location.state?.from || "/search";
 
@@ -49,7 +39,7 @@ const TokenDetailsPage = () => {
     fetchTokenDetailsWrapper();
   }, [oracleId, side, loggedInUser]);
 
-  const handleAddTokenToPalette = async () => {
+  const handleTokenAddition = async () => {
     if (!selectedPalette) {
       alert("Please select a palette before adding the token.");
       return;
@@ -59,91 +49,82 @@ const TokenDetailsPage = () => {
       await addTokenToPalette(selectedPalette, oracleId!, Number(side));
       const updatedPalettes = await fetchTokenPalettes();
       setTokenPalettes(updatedPalettes);
-      const selectedPaletteDetails = tokenPalettes.find(
-        (palette) => palette.id === selectedPalette,
-      );
-      const paletteName = selectedPaletteDetails?.name || "palette";
-      setConfirmation({
-        message: "Token added to ",
-        link: `/token-palettes/${selectedPalette}`,
-        paletteName,
-      });
-      setTimeout(() => {
-        setConfirmation(null);
-      }, 3000);
     } catch (error) {
-      console.error("Failed to add token to palette:", error);
+      console.error("Error adding token to palette:", error);
       alert("Failed to add token to the palette. Please try again.");
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p className="error-message">{error}</p>;
-  if (!token) return <p>Token not found.</p>;
+  if (loading) return <p className="flex items-center justify-center text-gray-500 italic text-center mb-4">Loading...</p>;
+
+  if (error) return <p className="flex items-center justify-center text-red-500 text-center mb-4">{error}</p>;
+
+  if (!token) return <p className="flex items-center justify-center text-gray-500 italic text-center mb-4">Token not found.</p>;
 
   return (
-    <div className="text-center">
-      <button onClick={() => navigate(previousPage)} className="back-button">
-        <i class="fa-solid fa-left-long"></i>
+    <div className="flex flex-col items-center bg-gray-100 mb-4">
+      <button
+        onClick={() => navigate(previousPage)}
+        className="px-4 py-2 mb-4 bg-gray-400 text-white rounded-lg hover:bg-gray-500 cursor-pointer"
+      >
+        <i className="fa-solid fa-left-long mr-2"></i> Back
       </button>
-      <h1>{token.name}</h1>
-      {token.imageUri && (
-        <img
-          src={token.imageUri}
-          alt={token.name}
-          className="image-max-width"
-        />
-      )}
-      <p>
-        <strong>Type:</strong> {token.typeLine || "No type available"}
-      </p>
-
-      {token.oracleText?.trim() && (
-        <p>
-          <strong>Text:</strong> {token.oracleText}
-        </p>
-      )}
-
-      {token.power?.trim() !== "N/A" &&
-        token.toughness?.trim() !== "N/A" &&
-        token.power?.trim() &&
-        token.toughness?.trim() && (
-          <p>
-            <strong>Power/Toughness:</strong> {token.power} / {token.toughness}
-          </p>
+      <div className="bg-white w-full max-w-3xl p-6 rounded-lg shadow-lg border border-gray-300">
+        <h1 className="text-2xl font-semibold text-gray-800 mb-4 text-center">{token.name}</h1>
+        {token.imageUri && (
+          <img
+            src={token.imageUri}
+            alt={token.name}
+            className="block mx-auto rounded-lg border border-gray-300 object-cover max-w-xs mb-4"
+          />
         )}
-      <p>
-        <strong>Artist:</strong> {token.artist || "Unknown"}
-      </p>
-
-      {loggedInUser && (
-        <div>
-          <h3>Add to Palette</h3>
-          <select
-            value={selectedPalette}
-            onChange={(e) => setSelectedPalette(e.target.value)}
-            className="search-toggle-button"
-          >
-            <option value="">-- Select a Palette --</option>
-            {tokenPalettes.map((palette) => (
-              <option key={palette.id} value={palette.id}>
-                {palette.name}
-              </option>
-            ))}
-          </select>
-
-          {selectedPalette && (
-            <button onClick={handleAddTokenToPalette}>Add to Palette</button>
-          )}
-
-          {confirmation && (
-            <p className="confirmation-message">
-              {confirmation.message}
-              <Link to={confirmation.link}>{confirmation.paletteName}</Link>!
+        <div className="text-center mb-4">
+          <p className="text-gray-700 my-2">
+            <strong>Type:</strong> {token.typeLine || "No type available"}
+          </p>
+          {token.oracleText?.trim() && (
+            <p className="text-gray-700 my-2">
+              <strong>Text:</strong> {token.oracleText}
             </p>
           )}
+          {token.power?.trim() !== "N/A" &&
+            token.toughness?.trim() !== "N/A" && (
+              <p className="text-gray-700 my-2">
+                <strong>Power/Toughness:</strong> {token.power} / {token.toughness}
+              </p>
+            )}
+          <p className="text-gray-700 my-2">
+            <strong>Artist:</strong> {token.artist || "Unknown"}
+          </p>
         </div>
-      )}
+
+        {loggedInUser && (
+          <div className="max-w-xs mx-auto">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">Add to Palette</h3>
+            <select
+              value={selectedPalette}
+              onChange={(e) => setSelectedPalette(e.target.value)}
+              className="block w-full border border-gray-300 rounded-lg p-2"
+            >
+              <option value="">-- Select a Palette --</option>
+              {tokenPalettes.map((palette) => (
+                <option key={palette.id} value={palette.id}>
+                  {palette.name}
+                </option>
+              ))}
+            </select>
+            {selectedPalette && (
+              <AddTokenToPalette
+                tokenPaletteId={selectedPalette}
+                oracleId={oracleId!}
+                side={Number(side)}
+                triggerBackend={true}
+                onTokenAdd={handleTokenAddition}
+              />
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
