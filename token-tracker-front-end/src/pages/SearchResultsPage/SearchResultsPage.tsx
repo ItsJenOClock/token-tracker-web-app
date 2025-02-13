@@ -55,12 +55,16 @@ const SearchResultsPage = () => {
   }, [query]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <p className="flex items-center justify-center text-gray-500 italic mb-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+      </p>
+    );
   }
 
   return (
     <div>
-      <h2>Search Results for: "{query}"</h2>
+      <h2>Search Results</h2>
       <SearchResults
         results={results}
         tokenPalettes={tokenPalettes}

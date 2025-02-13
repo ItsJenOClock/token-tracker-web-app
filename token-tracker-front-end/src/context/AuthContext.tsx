@@ -6,19 +6,30 @@ import {
   ReactNode,
 } from "react";
 
-interface AuthContext {
+interface AuthContextType {
   loggedInUser: string | null;
   login: (username: string) => void;
   logout: () => void;
+  redirectAfterLogin: string | null;
+  setRedirectAfterLogin: (route: string) => void;
+  isAuthLoading: boolean;
 }
 
-const AuthContext = createContext<AuthContext | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
+  const [redirectAfterLogin, setRedirectAfterLogin] = useState<string | null>(
+    null,
+  );
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   useEffect(() => {
-    setLoggedInUser(localStorage.getItem("loggedInUser"));
+    const savedUser = localStorage.getItem("loggedInUser");
+    if (savedUser) {
+      setLoggedInUser(savedUser);
+    }
+    setIsAuthLoading(false);
   }, []);
 
   const login = (username: string) => {
@@ -32,13 +43,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ loggedInUser, login, logout }}>
-      {children}
+    <AuthContext.Provider
+      value={{
+        loggedInUser,
+        login,
+        logout,
+        redirectAfterLogin,
+        setRedirectAfterLogin,
+        isAuthLoading,
+      }}
+    >
+      {!isAuthLoading ? children : <div>Loading...</div>}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = (): AuthContext => {
+export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");

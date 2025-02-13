@@ -14,17 +14,35 @@ const GameInfo: React.FC<GameInfoProps> = ({
   const navigate = useNavigate();
 
   return (
-    <div>
-      <p>
-        <br />
-        Selected Palette: <strong>{game.tokenPalette.name}</strong>
-        <br />
-        Started: <strong>{new Date(game.createdAt).toLocaleString()}</strong>
-      </p>
+    <div className="bg-white w-full max-w-xl p-6 rounded-lg shadow-lg border border-gray-300 mx-auto">
+      <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
+        Active Game
+      </h2>
+
+      <div className="text-gray-700 text-base space-y-4">
+        <div className="flex justify-between items-center">
+          <span className="font-medium text-*">Selected Palette:</span>
+          <strong className="text-gray-900 text-*">
+            {game.tokenPalette.name}
+          </strong>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="font-medium text-*">Game Started At:</span>
+          <strong className="text-gray-900 text-*">
+            {new Date(game.createdAt).toLocaleString()}
+          </strong>
+        </div>
+      </div>
+
       {showResumeButton && (
-        <button onClick={() => navigate(`/game/${game.id}`)}>
-          Resume Game
-        </button>
+        <div className="flex justify-center items-center mt-6">
+          <button
+            onClick={() => navigate(`/game/${game.id}`)}
+            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md focus:outline-none focus:ring focus:ring-blue-400 cursor-pointer"
+          >
+            <i className="fa-solid fa-play"></i> Resume
+          </button>
+        </div>
       )}
     </div>
   );
